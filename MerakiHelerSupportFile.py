@@ -901,7 +901,7 @@ def CheckUP(OrgResponse,headers):
 			#CheckIfDevice is in Whitelist ... 
 			#if CheckWhitelist(appliances.get('serial')) == False:
 			#	continue
-			if str(appliances.get('model'))[ 0 : 2 ] != "MX":
+			if str(appliances.get('model'))[ 0 : 2 ] == "MX":
 				continue
 			IsApplianceUp=DeviceUp(appliances.get('uplinks'),appliances.get('serial'),Orgs.get('name'), Orgs.get('id'))
 			for interfaces in appliances.get('uplinks'):
