@@ -888,7 +888,6 @@ def DeviceUp(uplinks,serial,name,id):
 	return(DeviceStatus)
 
 ##############################################################################################		
-
 def CheckUP(OrgResponse,headers):
 	for idx, Orgs in enumerate(OrgResponse):
 		if Orgs == "end":
@@ -904,7 +903,6 @@ def CheckUP(OrgResponse,headers):
 			#	continue
 			
 			IsApplianceUp=DeviceUp(appliances.get('uplinks'),appliances.get('serial'),Orgs.get('name'), Orgs.get('id'))
-			
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
