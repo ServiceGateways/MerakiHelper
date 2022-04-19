@@ -5,7 +5,7 @@
 if __name__ == '__main__':
 	# Parse the arguments
 	args = parseArguments()
-# If running in rm mode, then only looking for one org
+#############################################################
 if (args.remove) != None:
 	LoggingAdd("--WARNING-- Running in delete mode --WARNING-- ", "Ok", "Unknown",args.remove)
 	Org_url = API_URLPrefix+str(args.remove)
@@ -70,4 +70,5 @@ if (args.up) == True:
 	ReportTitle="Meraki Up-Down Report" 
 	LoggingUplinkPrint()
 	#Logging2CSVandXLS(ReportTitle)
-	
+#############################################################
+
