@@ -786,11 +786,7 @@ def API(a,b):
 		c = b64decode(b)
 		p = decrypt(a, c)
 		return(p.decode("utf-8"))
-	
-	#load_dotenv(dotenv_path=os.path.join(os.path.expanduser('~'),'.meraki.env'))
-	#return(os.getenv('x_cisco_meraki_api_key'))
-
-
+##############################################################################################
 def APIStore(a, b):
 	c = encrypt(a, b)
 	encoded_c = b64encode(c)
@@ -823,14 +819,6 @@ def get_org_id(meraki,orgID):
 
 	raise ValueError('The organization id does not exist')
 ##########################################################################################################################
-
-# Build headers for API call
-#headers = {}
-#headers["Content-Type"] = "application/json"
-#headers["Accept"] = "application/json"
-#APIKey=API(APIKeyUserName,APIKeyStored)
-#headers["X-Cisco-Meraki-API-Key"] = eval("APIKey")
-
 def GetUplinkStatus(OrgID,headers):
 	Uplink_url_suffix = "/appliance/uplink/statuses"
 	Uplink_url =  API_URLPrefix + OrgID + Uplink_url_suffix
@@ -850,7 +838,7 @@ def GetUplinkStatus(OrgID,headers):
 	if type(Tester) is list:
 		Uplinkresponse=(Uplink_response.json())
 	return(Uplinkresponse)
-
+##############################################################################################	
 def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 	now = datetime.datetime.now()
 	#Log only hold the last 300 entries
@@ -882,11 +870,10 @@ def DeviceUp(uplinks,serial,name,id):
 	for interfaces in uplinks:
 		if interfaces.get('status') == "active":
 			DeviceStatus=True
-			LoggingAddUplinks(serial,"DEVICE ONLINE", " ", name, id)
+			LoggingAddUplinks(serial,"Device Online", " ", name, id)
 			return(DeviceStatus)
-	LoggingAddUplinks(serial,"DEVICE OFFLINE", " ", name, id)
+	LoggingAddUplinks(serial,"***DEVICE OFFLINE***", " ", name, id)
 	return(DeviceStatus)
-
 ##############################################################################################		
 def CheckUP(OrgResponse,headers):
 	for idx, Orgs in enumerate(OrgResponse):
@@ -901,8 +888,6 @@ def CheckUP(OrgResponse,headers):
 			#CheckIfDevice is in Whitelist ... 
 			#if CheckWhitelist(appliances.get('serial')) == False:
 			#	continue
-			if str(appliances.get('model'))[ 0 : 2 ] == "MX":
-				continue
 			IsApplianceUp=DeviceUp(appliances.get('uplinks'),appliances.get('serial'),Orgs.get('name'), Orgs.get('id'))
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
