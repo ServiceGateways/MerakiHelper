@@ -870,9 +870,8 @@ def DeviceUp(uplinks,serial,name,id):
 	for interfaces in uplinks:
 		if interfaces.get('status') != "active":
 			DeviceStatus=False
-			LoggingAddUplinks(serial,"Device Online", " ", name, id)
+			LoggingAddUplinks(serial,"***DEVICE OFFLINE***", " ", name, id)
 			return(DeviceStatus)
-	LoggingAddUplinks(serial,"***DEVICE OFFLINE***", " ", name, id)
 	return(DeviceStatus)
 ##############################################################################################		
 def CheckUP(OrgResponse,headers):
