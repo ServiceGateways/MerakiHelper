@@ -759,7 +759,7 @@ def parseArguments():
     parser.add_argument("-u", "--usr", help="Plain text usrname", type=str)
     parser.add_argument("-s", "--search", help="Plain text usrname", type=str)
     parser.add_argument("-l", "--list", help="Lists access to orgs", action="store_true")
-    parser.add_argument("-up", "--up", help="List devices with interfaces down", action="store_true")
+    parser.add_argument("-up", "--up", help="List MX Appliance WAN interfaces", action="store_true")
     parser.add_argument("-re", "--review", help="Compliance check for ops", action="store_true")
     # Print version
     parser.add_argument("--version", action="version", version='%(prog)s - Version 2.0')
@@ -901,7 +901,8 @@ def CheckUP(OrgResponse,headers):
 			#CheckIfDevice is in Whitelist ... 
 			#if CheckWhitelist(appliances.get('serial')) == False:
 			#	continue
-			
+			if str(appliances.get('model'))[ 0 : 2 ] != "MX":
+				continue
 			IsApplianceUp=DeviceUp(appliances.get('uplinks'),appliances.get('serial'),Orgs.get('name'), Orgs.get('id'))
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
