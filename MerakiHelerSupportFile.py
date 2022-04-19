@@ -866,10 +866,10 @@ def LoggingUplinkPrint():
 	print(LogTable)
 ##############################################################################################		
 def DeviceUp(uplinks,serial,name,id):
-	DeviceStatus=False
+	DeviceStatus=True
 	for interfaces in uplinks:
-		if interfaces.get('status') == "active":
-			DeviceStatus=True
+		if interfaces.get('status') != "active":
+			DeviceStatus=False
 			LoggingAddUplinks(serial,"Device Online", " ", name, id)
 			return(DeviceStatus)
 	LoggingAddUplinks(serial,"***DEVICE OFFLINE***", " ", name, id)
@@ -889,6 +889,8 @@ def CheckUP(OrgResponse,headers):
 			#if CheckWhitelist(appliances.get('serial')) == False:
 			#	continue
 			IsApplianceUp=DeviceUp(appliances.get('uplinks'),appliances.get('serial'),Orgs.get('name'), Orgs.get('id'))
+			if IsApplianceUp == True:
+				continue
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
