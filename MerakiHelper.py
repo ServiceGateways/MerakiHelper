@@ -15,7 +15,7 @@
 # Various libraries
 #############################################################
 import httpimport
-url = "https://merakihelper.z33.web.core.windows.net/MerakiHelerSupportFile.py.zip"
+url = "https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py"
 with httpimport.remote_repo(["MerakiHelerSupportFile"], url):
 	from MerakiHelerSupportFile import *
 	print("imported MerakiHelerSupportFile")
@@ -23,7 +23,7 @@ with httpimport.remote_repo(["MerakiHelerSupportFile"], url):
 # Read in command line arguments and execute
 #############################################################
 import requests as req
-resp = req.get("https://merakihelper.z33.web.core.windows.net/MerakiHelerMainFile.py")
+resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerMainFile.py")
 exec(resp.text)
 #############################################################
 
