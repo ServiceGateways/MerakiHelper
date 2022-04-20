@@ -14,15 +14,20 @@
 #############################################################
 # Various libraries
 #############################################################
-import httpimport
-url = "https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py"
-with httpimport.remote_repo(["MerakiHelerSupportFile"], url):
-	from MerakiHelerSupportFile import *
-	print("imported MerakiHelerSupportFile")
+import requests as req
+
+#import httpimport
+#url = "https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py"
+#with httpimport.remote_repo(["MerakiHelerSupportFile"], url):
+#	from MerakiHelerSupportFile import *
+#	print("imported MerakiHelerSupportFile")
+resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py")
+exec(resp.text)
+
 #############################################################
 # Read in command line arguments and execute
 #############################################################
-import requests as req
+
 resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerMainFile.py")
 exec(resp.text)
 #############################################################
