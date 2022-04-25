@@ -19,7 +19,7 @@ headers = GetHeaders()
 dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
 #Get orgs
-OrgResponse=GetOrgs(headers)
+OrgResponse=GetOrgs(dashboard)
 runningxxx(1, OrgResponse) #Show program is running.
 #############################################################
 #List org access if needed
