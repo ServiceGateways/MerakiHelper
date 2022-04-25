@@ -171,24 +171,7 @@ def GetOrgsToDelete(Org_url,OrgID):
 	return(OrgResponse)
 ##############################################################################################	
 def GetOrgs(dashboard):
-	#Org_response = requests.request('GET', API_URLPrefix, headers=headers, data = Org_payload)
-	#Check if theres an issue with this org
-	#if (APIresponseCheck(Org_response, "Unknown", "Unknown")) == False: 
-	#	LoggingAdd("Unknown Org ID... confirm and try again:", Org_response.status_code, "Unknown",args.fix)	
-	#	LoggingPrint()
-	#	sys.exit()
-	
 	Org_response = dashboard.organizations.getOrganizations()
-
-		
-#	Tester=(Org_response)#.json())
-#	#Handle python behavour when only 1 reponse exists
-#	if type(Tester) is dict:
-#		OrgResponse=[]
-#		OrgResponse.append(Org_response.json())
-#		OrgResponse.append("end")
-#	if type(Tester) is list:
-#		OrgResponse=(Org_response)#.json())
 	return(Org_response)
 
 ##############################################################################################	
@@ -774,7 +757,6 @@ def parseArguments():
     parser.add_argument("--list", help="Lists all orgs the script has access to", action="store_true")
     parser.add_argument("--up", help="List MX Appliances with WAN interface issues", action="store_true")
     parser.add_argument("--review", help="Compliance check for ops", action="store_true")
-    # Print version
     parser.add_argument("--version", action="version", version='%(prog)s - Version 2.0')
     # Parse arguments
     args = parser.parse_args()
@@ -830,7 +812,6 @@ def get_org_id(meraki,orgID):
 	for row in result:
 		if row['id'] == orgID:
 			return row['id']
-
 	raise ValueError('The organization id does not exist')
 ##########################################################################################################################
 def GetUplinkStatus(OrgID,headers):
