@@ -16,6 +16,7 @@ if (args.remove) != None:
 #############################################################
 #Sort out API keys
 headers = GetHeaders()
+dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
 #Get orgs
 OrgResponse=GetOrgs(headers)

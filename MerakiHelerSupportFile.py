@@ -2,7 +2,7 @@
 # Imports
 ##############################################################################################	
 #MerakiChecksSettings.py
-modules = ["sys","os","datetime","csv","pathlib","argparse","requests","json","time"]
+modules = ["sys","os","datetime","csv","pathlib","argparse","requests","json","time","meraki"]
 for library in modules:
 	try:
 	    exec("import {module}".format(module=library))
@@ -129,6 +129,15 @@ UpdatedPolicy["enforceIdleTimeout"]= True
 ##############################################################################################	
 # Functions... some hardcoded, not really functions, but make main code neater
 ##############################################################################################	
+def ReadyAPIinterface(APIKey):
+	dashboard = meraki.DashboardAPI(APIKey)
+	return(dashboard)
+
+def GetAPIKey:
+	load_dotenv(dotenv_path="/usr/local/scripts/.meraki.env") 
+	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
+	return(APIKey)
+
 def GetHeaders():
 	print("Decrypting API Keys...")
 	# Build headers for API call
