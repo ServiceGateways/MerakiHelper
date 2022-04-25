@@ -181,15 +181,15 @@ def GetOrgs(headers):
 	Org_response = dashboard.organizations.getOrganizations()
 
 		
-	Tester=(Org_response)#.json())
-	#Handle python behavour when only 1 reponse exists
-	if type(Tester) is dict:
-		OrgResponse=[]
-		OrgResponse.append(Org_response.json())
-		OrgResponse.append("end")
-	if type(Tester) is list:
-		OrgResponse=(Org_response)#.json())
-	return(OrgResponse)
+#	Tester=(Org_response)#.json())
+#	#Handle python behavour when only 1 reponse exists
+#	if type(Tester) is dict:
+#		OrgResponse=[]
+#		OrgResponse.append(Org_response.json())
+#		OrgResponse.append("end")
+#	if type(Tester) is list:
+#		OrgResponse=(Org_response)#.json())
+	return(Org_response)
 
 ##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
