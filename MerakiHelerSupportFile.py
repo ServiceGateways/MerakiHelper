@@ -133,7 +133,7 @@ def ReadyAPIinterface(APIKey):
 	dashboard = meraki.DashboardAPI(APIKey)
 	return(dashboard)
 
-def GetAPIKey:
+def GetAPIKey():
 	load_dotenv(dotenv_path="/usr/local/scripts/.meraki.env") 
 	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
 	return(APIKey)
