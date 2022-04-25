@@ -485,16 +485,7 @@ def DeleteOrg(OrgID, OrgResponse, headers):
 			if (APIresponseCheck(NetDelresponse, Orgs.get('name'), Orgs.get('id'))) == False: continue		
 			
 	#############################################################
-		template_suffix = "/configTemplates"
-		templatesURL =  API_URLPrefix + Orgs.get('id') + template_suffix
-		templatedata = None
-		LoggingAdd("Deleting templates", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		#LoggingAdd(templatesURL, "Ok", Orgs.get('name'),Orgs.get('id'))	
-	
-		templates_response = requests.request('GET', templatesURL, headers=headers, data = templatedata)
-		#print("Templates: ",templates_response)
-	
-		if (APIresponseCheck(templates_response, Orgs.get('name'), Orgs.get('id'))) == False: continue		
+		templates = dashboard.organizations.getOrganizationConfigTemplates(Orgs.get('id'))	
 		templates = templates_response.json()
 		#print("Templates: ",templates)
 		Tester=(templates_response.json())
