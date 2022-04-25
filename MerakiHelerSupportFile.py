@@ -170,7 +170,7 @@ def GetOrgsToDelete(Org_url,OrgID):
 
 	return(OrgResponse)
 ##############################################################################################	
-def GetOrgs(headers):
+def GetOrgs(dashboard):
 	#Org_response = requests.request('GET', API_URLPrefix, headers=headers, data = Org_payload)
 	#Check if theres an issue with this org
 	#if (APIresponseCheck(Org_response, "Unknown", "Unknown")) == False: 
