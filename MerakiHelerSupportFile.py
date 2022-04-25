@@ -392,11 +392,8 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 def DeleteOrg(OrgID, OrgResponse, headers):
 	
 	for idx, Orgs in enumerate(OrgResponse):
-		if Orgs == "end":
-			continue
 		if Orgs.get('id)' != OrgID):
-			print("Something has gone wrong, safely aborting")
-			sys.exit()
+			continue
 		runningxxx(idx+1) #Show progress on screen
 		print("Org:  ", Orgs.get('name'))
 		#Double check before we delete
