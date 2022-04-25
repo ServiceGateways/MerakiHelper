@@ -14,6 +14,7 @@ if (args.remove) != None:
 	print("--WARNING-- Running in delete mode --WARNING-- ")	
 #############################################################
 #Sort out API keys
+print("Attempting to load enviromental information from",dotenv_path)
 headers = GetHeaders()
 #############################################################
 #Get orgs
