@@ -136,6 +136,7 @@ def GetHeaders():
 	headers["Content-Type"] = "application/json"
 	headers["Accept"] = "application/json"
 	load_dotenv(dotenv_path=os.path.join(os.path.expanduser('~'),'.meraki.env'))
+	print("Attempting to load enviromental information from",dotenv_path)
 	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
 	headers["X-Cisco-Meraki-API-Key"] = eval("APIKey")
 	return(headers)
