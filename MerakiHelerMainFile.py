@@ -9,13 +9,6 @@ if __name__ == '__main__':
 #Sort out API keys
 headers = GetHeaders()
 dashboard = ReadyAPIinterface(GetAPIKey())
-#############################################################	
-if (args.remove) != None:
-	LoggingAdd("--WARNING-- Running in delete mode --WARNING-- ", "Ok", "Unknown",args.remove)
-	Org_url = API_URLPrefix+str(args.remove)
-	OrgResponse = GetOrgsToDelete(Org_url,args.remove)
-	RWmode=True	
-	print("--WARNING-- Running in delete mode --WARNING-- ")	
 #############################################################
 #Get orgs
 OrgResponse=GetOrgs(dashboard)
