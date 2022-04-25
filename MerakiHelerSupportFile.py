@@ -389,12 +389,11 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 # *** BIG DELETE FUNCTIONS ***
 ##############################################################################################	
 
-def DeleteOrg(OrgID, OrgResponse, headers):
+def DeleteOrg(OrgID, OrgResponse):
 	
 	for idx, Orgs in enumerate(OrgResponse):
 		if Orgs.get('id)' != OrgID):
 			continue
-		runningxxx(idx+1) #Show progress on screen
 		print("Org:  ", Orgs.get('name'))
 		#Double check before we delete
 		print("*** WARNING: THERE IS NO COMING BACK FROM THIS ***")

@@ -12,10 +12,11 @@ dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
 #Get orgs
 OrgResponse=GetOrgs(dashboard)
-runningxxx(1, OrgResponse) #Show program is running.
+
 #############################################################
 #List org access if needed
 if args.list == True:
+	runningxxx(1, OrgResponse) #Show program is running.
 	ListOrgAccess(OrgResponse)
 	LoggingPrint()
 	ReportTitle="Meraki CMDB report - "
@@ -34,13 +35,14 @@ if args.search != None:
 #Delete this org
 if (args.remove) != None:
 	RWmode=True	
-	DeleteOrg(args.remove,OrgResponse,headers)
+	DeleteOrg(args.remove,OrgResponse)
 	ReportTitle="Meraki deleted org - " + args.remove
 	LoggingPrint()
 	Logging2CSVandXLS(ReportTitle)
 #############################################################
 #Run Compliance report
 if (args.review) == True:
+	runningxxx(1, OrgResponse) #Show program is running.
 	BigLoop(False, OrgResponse, 1)
 	ReportTitle="Meraki Compliance Report" 
 	LoggingPrint()
@@ -55,6 +57,7 @@ if (args.fix) != None:
 #############################################################
 #Run Up report
 if (args.up) == True:
+	runningxxx(1, OrgResponse) #Show program is running.
 	print("here")
 	CheckUP(OrgResponse)
 	ReportTitle="Meraki Up-Down Report" 
