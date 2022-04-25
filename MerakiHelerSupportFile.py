@@ -149,6 +149,31 @@ def GetOrgsToDelete(Org_url,OrgID):
 ##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
 ##############################################################################################	
+	def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
+		LocalAdminUpdate_suffix = "/admins/"
+		LocalAdminUpdate_url =  API_URLPrefix + OrgID + LocalAdminUpdate_suffix + LocalAdminUserID	
+		LocalAdminUpdatePayload = {}
+		LocalAdminUpdatePayload["name"] = LocalAdminName
+		LocalAdminUpdatePayload["orgAccess"] = LocalAdminAccess 
+		LocalAdminUpdatePayload["tags"] = None
+		LoggingAdd("Org admins: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
+		PushLocalAdminUpdate = requests.request('PUT', LocalAdminUpdate_url, headers=headers, data = json.dumps(LocalAdminUpdatePayload))
+		LoggingAdd("...org admin update complete", "Ok", Orgs.get('name'),Orgs.get('id'))	
+		return PushLocalAdminUpdate.status_code
+		##############################################################
+		#Define function for creating the local admin accounts if needed
+	def CreateLocalAdmin(OrgID, LocalAdminName, LocalAdminAccess, LocalAdminEmail):
+		CreateLocalAdmin_suffix = "/admins/"
+		CreateLocalAdmin_url =  API_URLPrefix + OrgID + CreateLocalAdmin_suffix	
+		CreateLocalAdminPayload = {}
+		CreateLocalAdminPayload["name"]= LocalAdminName
+		CreateLocalAdminPayload["email"]= LocalAdminEmail
+		CreateLocalAdminPayload["orgAccess"]= LocalAdminAccess
+		CreateLocalAdminPayload["tags"]= None
+		LoggingAdd("Org admins: creating", "Ok", Orgs.get('name'),Orgs.get('id'))	
+		CreateLocalAdminresponse = requests.request('POST', CreateLocalAdmin_url, headers=headers, data = json.dumps(CreateLocalAdminPayload))
+		return CreateLocalAdminresponse.status_code	
+
 def BigLoop(RWmode, OrgResponse, FixOrg):
 	#Start mega loop - looping through orgs
 	for idx, Orgs in enumerate(OrgResponse):
@@ -164,34 +189,9 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 			LoggingAdd("API access: disabled", "Err", Orgs.get('name'),Orgs.get('id'))
 			continue
 		LoggingAdd("API org access: enabled", "Ok", Orgs.get('name'),Orgs.get('id'))	
-	#############################################################
+		#############################################################
 		#Get the Org admin list
 		OrgAdminresponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
-		print(OrgAdminresponse)
-		def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
-			LocalAdminUpdate_suffix = "/admins/"
-			LocalAdminUpdate_url =  API_URLPrefix + OrgID + LocalAdminUpdate_suffix + LocalAdminUserID	
-			LocalAdminUpdatePayload = {}
-			LocalAdminUpdatePayload["name"] = LocalAdminName
-			LocalAdminUpdatePayload["orgAccess"] = LocalAdminAccess 
-			LocalAdminUpdatePayload["tags"] = None
-			LoggingAdd("Org admins: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-			PushLocalAdminUpdate = requests.request('PUT', LocalAdminUpdate_url, headers=headers, data = json.dumps(LocalAdminUpdatePayload))
-			LoggingAdd("...org admin update complete", "Ok", Orgs.get('name'),Orgs.get('id'))	
-			return PushLocalAdminUpdate.status_code
-		##############################################################
-		#Define function for creating the local admin accounts if needed
-		def CreateLocalAdmin(OrgID, LocalAdminName, LocalAdminAccess, LocalAdminEmail):
-			CreateLocalAdmin_suffix = "/admins/"
-			CreateLocalAdmin_url =  API_URLPrefix + OrgID + CreateLocalAdmin_suffix	
-			CreateLocalAdminPayload = {}
-			CreateLocalAdminPayload["name"]= LocalAdminName
-			CreateLocalAdminPayload["email"]= LocalAdminEmail
-			CreateLocalAdminPayload["orgAccess"]= LocalAdminAccess
-			CreateLocalAdminPayload["tags"]= None
-			LoggingAdd("Org admins: creating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-			CreateLocalAdminresponse = requests.request('POST', CreateLocalAdmin_url, headers=headers, data = json.dumps(CreateLocalAdminPayload))
-			return CreateLocalAdminresponse.status_code	
 		##############################################################
 		#Loop through admins and check if correct accounts are there.
 		#for OrgAdmins in OrgAdminResponse:
