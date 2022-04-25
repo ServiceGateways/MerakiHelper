@@ -68,7 +68,7 @@ if (args.fix) != None:
 #Run Up report
 if (args.up) == True:
 	print("here")
-	CheckUP(OrgResponse,headers)
+	CheckUP(OrgResponse)
 	ReportTitle="Meraki Up-Down Report" 
 	LoggingUplinkPrint()
 	#Logging2CSVandXLS(ReportTitle)

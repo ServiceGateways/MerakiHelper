@@ -807,7 +807,7 @@ def FindOrgAndList(OrgResponse, argssearch):
 			LoggingAdd("Analysing org.....", "Ok", Orgs.get('name'), Orgs.get('id'))	
 	return foundsomething
 ##############################################################################################
-def GetUplinkStatus(OrgID,headers):
+def GetUplinkStatus(OrgID):
 	Uplinkresponse = dashboard.appliance.getOrganizationApplianceUplinkStatuses(OrgID, total_pages='all')
 	return(Uplinkresponse)
 ##############################################################################################	
@@ -847,13 +847,13 @@ def DeviceUp(uplinks,serial,name,id):
 			return(DeviceStatus)
 	return(DeviceStatus)
 ##############################################################################################		
-def CheckUP(OrgResponse,headers):
+def CheckUP(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		if Orgs == "end":
 			continue
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		#get uplinks
-		Uplinkresponse=GetUplinkStatus(Orgs.get('id'),headers)		
+		Uplinkresponse=GetUplinkStatus(Orgs.get('id'))		
 		for idx, appliances in enumerate(Uplinkresponse):
 			if appliances == "end":
 				continue
