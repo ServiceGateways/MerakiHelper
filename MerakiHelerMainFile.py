@@ -14,8 +14,6 @@ if (args.remove) != None:
 	print("--WARNING-- Running in delete mode --WARNING-- ")	
 #############################################################
 #Sort out API keys
-print("Attempting to load enviromental information from",(os.path.join(os.path.expanduser('~'),'.meraki.env')))
-
 headers = GetHeaders()
 #############################################################
 #Get orgs
