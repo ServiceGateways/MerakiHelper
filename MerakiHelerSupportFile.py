@@ -247,13 +247,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					continue
 	#############################################################
 		# First routine... check the security rules for this org 	
-		Login_url_suffix = "/loginSecurity"
-		Login_url =  API_URLPrefix + Orgs.get('id') + Login_url_suffix
-		Login_payload = None
-		LoggingAdd("Login Security accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		Login_response = requests.request('GET', Login_url, headers=headers, data = Login_payload)
-		if (APIresponseCheck(Login_response, Orgs.get('name'), Orgs.get('id'))) == False: continue
-		LoginResponse = Login_response.json()
+		LoginResponse = dashboard.organizations.getOrganizationLoginSecurity(Orgs.get('id'))
 		
 		#Test security rules
 		PushNewLoginPolicy = False
@@ -297,13 +291,8 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 	#############################################################
 		#2nd routine check the IDp settings
 		#Build URL to capture IDp settings
-		Saml_url_suffix = "/saml"
-		Saml_url =  API_URLPrefix + Orgs.get('id') + Saml_url_suffix
-		Saml_payload = None
-		LoggingAdd("SAML enabled: accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		Saml_response = requests.request('GET', Saml_url, headers=headers, data = json.dumps(Saml_payload))
-		if (APIresponseCheck(Saml_response, Orgs.get('name'), Orgs.get('id'))) == False: continue
-		SamlResponse = Saml_response.json()
+		SamlResponse = dashboard.organizations.getOrganizationSaml(Orgs.get('id'))
+		
 		#Prepare a small function to be used if IdP disabled or missing
 		def SetupIPpInternal(OrgID):
 			IDp_url_suffix = "/saml/idps"
@@ -332,13 +321,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				#SetupIPpInternalResponse=SetupIPpInternal(OrgID=Orgs.get('id'))
 				#if (APIresponseCheck(SetupIPpInternalResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue
 		#Is Saml enabled but mis-configured
-		GetIDp_url_suffix = "/saml/idps"
-		GetIDp_url =  API_URLPrefix + Orgs.get('id') + GetIDp_url_suffix	
-		GetIDpPayload = None
-		LoggingAdd("IdP Integration: accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		GetIDp = requests.request('Get', GetIDp_url, headers=headers, data = GetIDpPayload)
-		if (APIresponseCheck(GetIDp, Orgs.get('name'), Orgs.get('id'))) == False: continue	
-		IdP_Configured = GetIDp.json()
+		IdP_Configured = dashboard.organizations.getOrganizationSamlIdps(Orgs.get('id'))
 	    #############################################################
 		#Cycle through configured IdPs attemp to find 
 		#############################################################
