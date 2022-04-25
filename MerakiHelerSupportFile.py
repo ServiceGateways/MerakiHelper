@@ -415,7 +415,7 @@ def DeleteOrg(OrgID, OrgResponse):
 		LoggingAdd("API org access: enabled", "Ok", Orgs.get('name'),Orgs.get('id'))	
 	#############################################################
 		#Get the Org admin list
-		OrgAdminresponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
+		OrgAdminResponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
 	##############################################################
 		#Loop through admins and check if correct accounts are there.
 		#for OrgAdmins in OrgAdminResponse:
