@@ -754,14 +754,14 @@ def parseArguments():
     # Create argument parser
     parser = argparse.ArgumentParser()
     # Optional arguments
-    parser.add_argument("-f", "--fix", help="Fix this org <specify Org ID>", type=int)
-    parser.add_argument("-r", "--remove", help="Delete this org <specify Org ID>", type=int)
-    parser.add_argument("-a", "--api", help="Plain text API", type=str)
-    parser.add_argument("-u", "--usr", help="Plain text usrname", type=str)
-    parser.add_argument("-s", "--search", help="Plain text usrname", type=str)
-    parser.add_argument("-l", "--list", help="Lists access to orgs", action="store_true")
-    parser.add_argument("-up", "--up", help="List MX Appliance WAN interfaces", action="store_true")
-    parser.add_argument("-re", "--review", help="Compliance check for ops", action="store_true")
+    parser.add_argument("--fix", help="Fix this org <specify Org ID>", type=int)
+    parser.add_argument("--remove", help="Delete this org <specify Org ID>", type=int)
+    parser.add_argument("--api", help="Plain text API", type=str)
+    parser.add_argument("--usr", help="Plain text usrname", type=str)
+    parser.add_argument("--search", help="Plain text usrname", type=str)
+    parser.add_argument("--list", help="Lists access to orgs", action="store_true")
+    parser.add_argument("--up", help="List MX Appliance WAN interfaces", action="store_true")
+    parser.add_argument("--review", help="Compliance check for ops", action="store_true")
     # Print version
     parser.add_argument("--version", action="version", version='%(prog)s - Version 2.0')
     # Parse arguments
