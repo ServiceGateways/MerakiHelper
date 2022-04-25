@@ -392,7 +392,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 def DeleteOrg(OrgID, OrgResponse):
 	
 	for idx, Orgs in enumerate(OrgResponse):
-		print("Orgs.get('id)'=", Orgs.get('id)', "str(OrgID) = ", str(OrgID))
+		print("Orgs.get('id)'="+ Orgs.get('id')+ "str(OrgID) = "+ str(OrgID))
 		if Orgs.get('id)' != str(OrgID):
 			continue
 		print("Org:  ", Orgs.get('name'))
