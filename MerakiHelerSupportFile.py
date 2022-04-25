@@ -196,7 +196,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		LoggingAdd("API org access: enabled", "Ok", Orgs.get('name'),Orgs.get('id'))	
 	#############################################################
 		#Get the Org admin list
-		OrgAdmin_response = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
+		OrgAdminresponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
 		#OrgAdmin_url_suffix = "/admins"
 		#OrgAdmin_url =  API_URLPrefix + Orgs.get('id') + OrgAdmin_url_suffix
 		#OrgAdmin_payload = None
