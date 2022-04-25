@@ -758,7 +758,7 @@ def parseArguments():
     parser.add_argument("--remove", help="Delete this empty org <specify Org ID>", type=int)
     #parser.add_argument("--api", help="Plain text API", type=str)
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
-    #parser.add_argument("--search", help="Plain text usrname", type=str)
+    parser.add_argument("--search", help="Plain text usrname", type=str)
     parser.add_argument("--list", help="Lists all orgs the script has access to", action="store_true")
     parser.add_argument("--up", help="List MX Appliance WAN interfaces", action="store_true")
     parser.add_argument("--review", help="Compliance check for ops", action="store_true")

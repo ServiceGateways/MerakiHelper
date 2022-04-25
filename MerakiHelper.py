@@ -15,12 +15,18 @@
 # Various libraries
 #############################################################
 import requests as req
-resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py")
+try:
+	resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py")
+except:
+	print("Can not load file")
 exec(resp.text)
 #############################################################
 # Read in command line arguments and execute
 #############################################################
-resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerMainFile.py")
+try:
+	resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerMainFile.py")
+except:
+	print("Can not load file")
 exec(resp.text)
 #############################################################
 
