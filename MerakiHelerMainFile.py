@@ -6,10 +6,6 @@ if __name__ == '__main__':
 	# Parse the arguments
 	args = parseArguments()
 	
-if len(sys.argv)==1:
-    args.print_help(sys.stderr)
-    sys.exit(1)
-
 #############################################################
 if (args.remove) != None:
 	LoggingAdd("--WARNING-- Running in delete mode --WARNING-- ", "Ok", "Unknown",args.remove)

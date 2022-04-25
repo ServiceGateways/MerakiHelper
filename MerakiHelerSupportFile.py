@@ -766,6 +766,7 @@ def parseArguments():
     parser.add_argument("--version", action="version", version='%(prog)s - Version 2.0')
     # Parse arguments
     args = parser.parse_args()
+    parser.parse_args(args=None if sys.argv[1:] else ['--help'])
     return args
 ##############################################################################################
 #Check API response for failure codes... its a bit broad but had issues with codes.ok
