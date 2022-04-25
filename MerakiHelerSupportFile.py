@@ -171,12 +171,15 @@ def GetOrgsToDelete(Org_url,OrgID):
 	return(OrgResponse)
 ##############################################################################################	
 def GetOrgs(headers):
-	Org_response = requests.request('GET', API_URLPrefix, headers=headers, data = Org_payload)
+	#Org_response = requests.request('GET', API_URLPrefix, headers=headers, data = Org_payload)
 	#Check if theres an issue with this org
-	if (APIresponseCheck(Org_response, "Unknown", "Unknown")) == False: 
-		LoggingAdd("Unknown Org ID... confirm and try again:", Org_response.status_code, "Unknown",args.fix)	
-		LoggingPrint()
-		sys.exit()
+	#if (APIresponseCheck(Org_response, "Unknown", "Unknown")) == False: 
+	#	LoggingAdd("Unknown Org ID... confirm and try again:", Org_response.status_code, "Unknown",args.fix)	
+	#	LoggingPrint()
+	#	sys.exit()
+	
+	Org_response = dashboard.organizations.getOrganizations()
+
 		
 	Tester=(Org_response.json())
 	#Handle python behavour when only 1 reponse exists
