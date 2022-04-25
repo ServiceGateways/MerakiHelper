@@ -196,21 +196,22 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		LoggingAdd("API org access: enabled", "Ok", Orgs.get('name'),Orgs.get('id'))	
 	#############################################################
 		#Get the Org admin list
-		OrgAdmin_url_suffix = "/admins"
-		OrgAdmin_url =  API_URLPrefix + Orgs.get('id') + OrgAdmin_url_suffix
-		OrgAdmin_payload = None
-		LoggingAdd("Org admins accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		OrgAdmin_response = requests.request('GET', OrgAdmin_url, headers=headers, data = OrgAdmin_payload)
-		if (APIresponseCheck(OrgAdmin_response, Orgs.get('name'), Orgs.get('id'))) == False:
-			continue
-		Tester=(OrgAdmin_response.json())
+		OrgAdmin_response = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
+		#OrgAdmin_url_suffix = "/admins"
+		#OrgAdmin_url =  API_URLPrefix + Orgs.get('id') + OrgAdmin_url_suffix
+		#OrgAdmin_payload = None
+		#LoggingAdd("Org admins accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
+		#OrgAdmin_response = requests.request('GET', OrgAdmin_url, headers=headers, data = OrgAdmin_payload)
+		#if (APIresponseCheck(OrgAdmin_response, Orgs.get('name'), Orgs.get('id'))) == False:
+		#	continue
+		#Tester=(OrgAdmin_response.json())
 		#Handle pythong behour when only 1 reponse exists
-		if type(Tester) is dict:
-			OrgAdminResponse=[]
-			OrgAdminResponse.append(OrgAdmin_response.json())
-			OrgAdminResponse.append("end")
-		if type(Tester) is list:
-			OrgAdminResponse=(OrgAdmin_response.json())
+		#if type(Tester) is dict:
+		#	OrgAdminResponse=[]
+		#	OrgAdminResponse.append(OrgAdmin_response.json())
+		#	OrgAdminResponse.append("end")
+		#if type(Tester) is list:
+		#	OrgAdminResponse=(OrgAdmin_response.json())
 	##############################################################
 		#Define function for updating the local admin accounts if needed
 		def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
