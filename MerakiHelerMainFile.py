@@ -31,11 +31,6 @@ if args.search != None:
 		print("No orgs found with this search criteria (check it has API access enabled)")
 	sys.exit()		
 #############################################################
-#Safety check, delete org only works with one org at a time
-if len((OrgResponse)) > 2 and (args.remove) != None:
-	print("Working with too many orgs... safety abort. Orgs listed =",len(OrgResponse))
-	sys.exit()		
-#############################################################
 #Delete this org
 if (args.remove) != None:
 	RWmode=True	
