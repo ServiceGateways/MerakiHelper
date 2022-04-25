@@ -815,23 +815,24 @@ def get_org_id(meraki,orgID):
 	raise ValueError('The organization id does not exist')
 ##########################################################################################################################
 def GetUplinkStatus(OrgID,headers):
-	Uplink_url_suffix = "/appliance/uplink/statuses"
-	Uplink_url =  API_URLPrefix + OrgID + Uplink_url_suffix
-	Uplink_payload = None
-	Uplink_response = requests.request('GET', Uplink_url, headers=headers, data = Uplink_payload)
+	Uplinkresponse = dashboard.appliance.getOrganizationApplianceUplinkStatuses(OrgID, total_pages='all')
+	#Uplink_url_suffix = "/appliance/uplink/statuses"
+	#Uplink_url =  API_URLPrefix + OrgID + Uplink_url_suffix
+	#Uplink_payload = None
+	#Uplink_response = requests.request('GET', Uplink_url, headers=headers, data = Uplink_payload)
 	#Check if theres an issue with this org
-	if (APIresponseCheck(Uplink_response, "Unknown", "Unknown")) == False: 
-		LoggingAdd("Unknown Org ID... confirm and try again:", Uplink_response.status_code, "Unknown",args.rm)	
-		LoggingPrint()
-		sys.exit()
-	Tester=(Uplink_response.json())
+	#if (APIresponseCheck(Uplink_response, "Unknown", "Unknown")) == False: 
+	#	LoggingAdd("Unknown Org ID... confirm and try again:", Uplink_response.status_code, "Unknown",args.rm)	
+	#	LoggingPrint()
+	#	sys.exit()
+	#Tester=(Uplink_response.json())
 	#Handle python behavour when only 1 reponse exists
-	if type(Tester) is dict:
-		Uplinkresponse=[]
-		Uplinkresponse.append(Uplink_response.json())
-		Uplinkresponse.append("end")
-	if type(Tester) is list:
-		Uplinkresponse=(Uplink_response.json())
+	#if type(Tester) is dict:
+#		Uplinkresponse=[]
+#		Uplinkresponse.append(Uplink_response.json())
+#		Uplinkresponse.append("end")
+#	if type(Tester) is list:
+#		Uplinkresponse=(Uplink_response.json())
 	return(Uplinkresponse)
 ##############################################################################################	
 def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
