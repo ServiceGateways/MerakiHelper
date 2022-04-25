@@ -751,13 +751,14 @@ def parseArguments():
     # Optional arguments
     parser.add_argument("--fix", help="Fix an org not in compliance <specify Org ID>", type=int)
     parser.add_argument("--remove", help="Delete this empty org <specify Org ID>", type=int)
-    #parser.add_argument("--api", help="Plain text API", type=str)
-    #parser.add_argument("--usr", help="Plain text usrname", type=str)
+   
     parser.add_argument("--search", help="Search org names for <string>", type=str)
     parser.add_argument("--list", help="Lists all orgs the script has access to", action="store_true")
     parser.add_argument("--up", help="List MX Appliances with WAN interface issues", action="store_true")
     parser.add_argument("--review", help="Compliance check for ops", action="store_true")
-    parser.add_argument("--version", action="version", version='%(prog)s - Version 2.0')
+    parser.add_argument("--version", action="version", version='%(prog)s - Version 2.1')
+    #parser.add_argument("--api", help="Plain text API", type=str)
+    #parser.add_argument("--usr", help="Plain text usrname", type=str)
     # Parse arguments
     args = parser.parse_args()
     parser.parse_args(args=None if sys.argv[1:] else ['--help'])
@@ -806,33 +807,8 @@ def FindOrgAndList(OrgResponse, argssearch):
 			LoggingAdd("Analysing org.....", "Ok", Orgs.get('name'), Orgs.get('id'))	
 	return foundsomething
 ##############################################################################################
-#Confirm org ID, confirm you have access and handle issues
-def get_org_id(meraki,orgID):
-	result = meraki.organizations.get_organizations()
-	for row in result:
-		if row['id'] == orgID:
-			return row['id']
-	raise ValueError('The organization id does not exist')
-##########################################################################################################################
 def GetUplinkStatus(OrgID,headers):
 	Uplinkresponse = dashboard.appliance.getOrganizationApplianceUplinkStatuses(OrgID, total_pages='all')
-	#Uplink_url_suffix = "/appliance/uplink/statuses"
-	#Uplink_url =  API_URLPrefix + OrgID + Uplink_url_suffix
-	#Uplink_payload = None
-	#Uplink_response = requests.request('GET', Uplink_url, headers=headers, data = Uplink_payload)
-	#Check if theres an issue with this org
-	#if (APIresponseCheck(Uplink_response, "Unknown", "Unknown")) == False: 
-	#	LoggingAdd("Unknown Org ID... confirm and try again:", Uplink_response.status_code, "Unknown",args.rm)	
-	#	LoggingPrint()
-	#	sys.exit()
-	#Tester=(Uplink_response.json())
-	#Handle python behavour when only 1 reponse exists
-	#if type(Tester) is dict:
-#		Uplinkresponse=[]
-#		Uplinkresponse.append(Uplink_response.json())
-#		Uplinkresponse.append("end")
-#	if type(Tester) is list:
-#		Uplinkresponse=(Uplink_response.json())
 	return(Uplinkresponse)
 ##############################################################################################	
 def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
@@ -855,6 +831,7 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 ##############################################################################################	
 #Prints on screen the logging List
 def LoggingUplinkPrint():
+	screen_clear()
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
 	LogTable = PrettyTable(['Date', 'Time', 'Serial','Interface', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
 	for LogEntries in LoggingListUplinks:
