@@ -36,7 +36,7 @@ if args.search != None:
 if (args.remove) != None:
 	RWmode=True	
 	DeleteOrg(args.remove,OrgResponse)
-	ReportTitle="Meraki deleted org - " + args.remove
+	ReportTitle="Meraki deleted org - " + str(args.remove)
 	LoggingPrint()
 	Logging2CSVandXLS(ReportTitle)
 #############################################################

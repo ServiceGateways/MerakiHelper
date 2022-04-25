@@ -392,14 +392,15 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 def DeleteOrg(OrgID, OrgResponse):
 	
 	for idx, Orgs in enumerate(OrgResponse):
-		print("Orgs.get('id)'="+ Orgs.get('id')+ "str(OrgID) = "+ str(OrgID))
 		if Orgs.get('id') != str(OrgID):
 			continue
+		print(" ")
 		print("Org:  ", Orgs.get('name'))
+		print(" ")
 		#Double check before we delete
 		print("*** WARNING: THERE IS NO COMING BACK FROM THIS ***")
 		print(" ")
-		ConfirmName = input("Please confirm the org NAME you are attempting to delete: (or ctrl-x to abort)")
+		ConfirmName = input("Please confirm the org NAME you are attempting to delete (or ctrl-x to abort): ")
 		if ConfirmName != Orgs.get('name'):
 			print("Wrong name provided... safety abort")
 			sys.exit()		
