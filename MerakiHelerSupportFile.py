@@ -152,8 +152,6 @@ def GetOrgsToDelete(Org_url,OrgID):
 def BigLoop(RWmode, OrgResponse, FixOrg):
 	#Start mega loop - looping through orgs
 	for idx, Orgs in enumerate(OrgResponse):
-		if Orgs == "end":
-			continue
 		if RWmode == True:
 			if Orgs.get('id') != str(FixOrg):
 				continue
@@ -169,7 +167,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 	#############################################################
 		#Get the Org admin list
 		OrgAdminresponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
-	
+		print(OrgAdminresponse)
 		def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
 			LocalAdminUpdate_suffix = "/admins/"
 			LocalAdminUpdate_url =  API_URLPrefix + OrgID + LocalAdminUpdate_suffix + LocalAdminUserID	
