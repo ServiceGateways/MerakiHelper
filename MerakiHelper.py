@@ -19,7 +19,9 @@ try:
 	resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerSupportFile.py")
 except:
 	print("Can not load file")
-exec(resp.text)
+	
+try:
+	exec(resp.text)
 #############################################################
 # Read in command line arguments and execute
 #############################################################
@@ -27,6 +29,7 @@ try:
 	resp = req.get("https://raw.githubusercontent.com/ServiceGateways/MerakiHelper/main/MerakiHelerMainFile.py")
 except:
 	print("Can not load file")
-exec(resp.text)
+try:
+	exec(resp.text)
 #############################################################
 
