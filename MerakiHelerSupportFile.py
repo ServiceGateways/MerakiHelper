@@ -760,7 +760,7 @@ def parseArguments():
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
     parser.add_argument("--search", help="Search org names for <string>", type=str)
     parser.add_argument("--list", help="Lists all orgs the script has access to", action="store_true")
-    parser.add_argument("--up", help="List MX Appliance WAN interfaces", action="store_true")
+    parser.add_argument("--up", help="List MX Appliances with WAN interface issues", action="store_true")
     parser.add_argument("--review", help="Compliance check for ops", action="store_true")
     # Print version
     parser.add_argument("--version", action="version", version='%(prog)s - Version 2.0')
