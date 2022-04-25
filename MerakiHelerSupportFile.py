@@ -188,7 +188,7 @@ def GetOrgs(headers):
 		OrgResponse.append(Org_response.json())
 		OrgResponse.append("end")
 	if type(Tester) is list:
-		OrgResponse=(Org_response.json())
+		OrgResponse=(Org_response)#.json())
 	return(OrgResponse)
 
 ##############################################################################################	
