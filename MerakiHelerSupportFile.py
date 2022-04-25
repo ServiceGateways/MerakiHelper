@@ -42,15 +42,7 @@ except Exception as e:
 ############################################################
 #Variables...
 #############################################################
-#API used for all calls... im told it shouldnt be hard-coded, but...
-#APIKeyUserName = "vmo2merakisupportb@virginmedia.co.uk"
-#APIKeyUserName=""
-#APIKey = ""
-#APIKeyStored=""
-
 Devmode=False
-
-
 
 Org_payload = None
 API_URLPrefix = "https://api.meraki.com/api/v1/organizations/" 
@@ -98,14 +90,10 @@ adminD["located"] = False
 
 Localadmins = [adminA, adminB, adminC, adminD]
 
-
-
 #list for log entries
 LoggingList = []
 LoggingListUplinks = []
 #CSV Export file name 
-
-
 
 #Log in security policy pushed in event of checks failed
 UpdatedPolicy= {}
