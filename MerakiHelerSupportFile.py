@@ -126,41 +126,25 @@ def GetAPIKey():
 	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
 	return(APIKey)
 
+def GetOrgs(dashboard):
+	Org_response = dashboard.organizations.getOrganizations()
+	return(Org_response)
+##############################################################################################	
+
 def GetHeaders():
 	print("Decrypting API Keys...")
 	# Build headers for API call
 	headers = {}
 	headers["Content-Type"] = "application/json"
 	headers["Accept"] = "application/json"
-	#load_dotenv(dotenv_path=os.path.join(os.path.expanduser('~'),'.meraki.env'))
 	load_dotenv(dotenv_path="/usr/local/scripts/.meraki.env") 
 	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
 	headers["X-Cisco-Meraki-API-Key"] = eval("APIKey")
 	return(headers)
 ##############################################################################################	
 def GetOrgsToDelete(Org_url,OrgID):
-	Org_payload = None
-	Org_response = requests.request('GET', Org_url, headers=headers, data = Org_payload)
-
-	#Check if theres an issue with this org
-	if (APIresponseCheck(Org_response, "Unknown", "Unknown")) == False: 
-		LoggingAdd("Unknown Org ID... confirm and try again:", Org_response.status_code, "Unknown",args.rm)	
-		LoggingPrint()
-		sys.exit()
-	Tester=(Org_response.json())
-	#Handle python behavour when only 1 reponse exists
-	if type(Tester) is dict:
-		OrgResponse=[]
-		OrgResponse.append(Org_response.json())
-		OrgResponse.append("end")
-	if type(Tester) is list:
-		OrgResponse=(Org_response.json())
-
+	OrgResponse = GetOrgs(dashboard)
 	return(OrgResponse)
-##############################################################################################	
-def GetOrgs(dashboard):
-	Org_response = dashboard.organizations.getOrganizations()
-	return(Org_response)
 
 ##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
@@ -185,23 +169,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 	#############################################################
 		#Get the Org admin list
 		OrgAdminresponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
-		#OrgAdmin_url_suffix = "/admins"
-		#OrgAdmin_url =  API_URLPrefix + Orgs.get('id') + OrgAdmin_url_suffix
-		#OrgAdmin_payload = None
-		#LoggingAdd("Org admins accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		#OrgAdmin_response = requests.request('GET', OrgAdmin_url, headers=headers, data = OrgAdmin_payload)
-		#if (APIresponseCheck(OrgAdmin_response, Orgs.get('name'), Orgs.get('id'))) == False:
-		#	continue
-		#Tester=(OrgAdmin_response.json())
-		#Handle pythong behour when only 1 reponse exists
-		#if type(Tester) is dict:
-		#	OrgAdminResponse=[]
-		#	OrgAdminResponse.append(OrgAdmin_response.json())
-		#	OrgAdminResponse.append("end")
-		#if type(Tester) is list:
-		#	OrgAdminResponse=(OrgAdmin_response.json())
-	##############################################################
-		#Define function for updating the local admin accounts if needed
+	
 		def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
 			LocalAdminUpdate_suffix = "/admins/"
 			LocalAdminUpdate_url =  API_URLPrefix + OrgID + LocalAdminUpdate_suffix + LocalAdminUserID	
@@ -248,7 +216,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 						#Attempt small push to org to test access
 				if breakout == True:
 					break
-				#print(OrgAdminResponse)
 				if OrgAdminResponse[OrgAdminResponse.index(admins)].get('email') == locals.get('email'):
 					#Found one of the VMB accounts
 					
@@ -480,21 +447,7 @@ def DeleteOrg(OrgID, OrgResponse, headers):
 		LoggingAdd("API org access: enabled", "Ok", Orgs.get('name'),Orgs.get('id'))	
 	#############################################################
 		#Get the Org admin list
-		OrgAdmin_url_suffix = "/admins"
-		OrgAdmin_url =  API_URLPrefix + Orgs.get('id') + OrgAdmin_url_suffix
-		OrgAdmin_payload = None
-		LoggingAdd("Org admins accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		OrgAdmin_response = requests.request('GET', OrgAdmin_url, headers=headers, data = OrgAdmin_payload)
-		if (APIresponseCheck(OrgAdmin_response, Orgs.get('name'), Orgs.get('id'))) == False:
-			continue
-		Tester=(OrgAdmin_response.json())
-		#Handle pythong behour when only 1 reponse exists
-		if type(Tester) is dict:
-			OrgAdminResponse=[]
-			OrgAdminResponse.append(OrgAdmin_response.json())
-			OrgAdminResponse.append("end")
-		if type(Tester) is list:
-			OrgAdminResponse=(OrgAdmin_response.json())
+		OrgAdminresponse = dashboard.organizations.getOrganizationAdmins(Orgs.get('id'))
 	##############################################################
 		#Loop through admins and check if correct accounts are there.
 		#for OrgAdmins in OrgAdminResponse:
