@@ -445,12 +445,7 @@ def DeleteOrg(OrgID, OrgResponse, headers):
 				LoggingAdd("Deleting all admin orgs", "OK", Orgs.get('name'),Orgs.get('id'))	
 	##############################################################
 		#Turn off SAML
-		LoggingAdd("SAML disabling", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		NewJsonBlobForUpdatedSaml = {}
-		NewJsonBlobForUpdatedSaml["enabled"] = "false"
-		Saml_url_suffix = "/saml"
-		Saml_url =  API_URLPrefix + Orgs.get('id') + Saml_url_suffix
-		PushNewSaml = requests.request('PUT', Saml_url, headers=headers, data = json.dumps(NewJsonBlobForUpdatedSaml))
+		PushNewSaml = dashboard.organizations.updateOrganizationSaml(Orgs.get('id'), enabled=False)
 		#print(PushNewSaml)
 		if (APIresponseCheck(PushNewSaml, Orgs.get('name'), Orgs.get('id'))) == False: continue	
 	
