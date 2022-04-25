@@ -246,7 +246,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		for admins in OrgAdminResponse:
 			for locals in Localadmins:
 				#print(Localadmins[Localadmins.index(locals)].get('email'))
-				if Localadmins[Localadmins.index(locals)].get('email') == APIKeyUserName:
+				if Localadmins[Localadmins.index(locals)].get('email') == os.getenv('APIKeyUserName'):
 					#Found the account with which we are APIing into Meraki
 					#Does it have RO or RW?
 					if Localadmins[Localadmins.index(locals)].get('orgAccess') == "read-only" and RWmode==True:
@@ -514,7 +514,7 @@ def DeleteOrg(OrgID, OrgResponse, headers):
 		showaccountonce = False
 		for admins in OrgAdminResponse:
 			for locals in Localadmins:
-				if Localadmins[Localadmins.index(locals)].get('email') == APIKeyUserName:
+				if Localadmins[Localadmins.index(locals)].get('email') == os.getenv('APIKeyUserName'):
 					#Found the account with which we are APIing into Meraki
 					#Does it have RO or RW?
 					if Localadmins[Localadmins.index(locals)].get('orgAccess') == "read-only" and RWmode==True:
@@ -527,7 +527,7 @@ def DeleteOrg(OrgID, OrgResponse, headers):
 						showaccountonce = True
 			
 			#This should delete any admin which is not needed					
-			if admins.get('email') != APIKeyUserName:
+			if admins.get('email') != os.getenv('APIKeyUserName'):
 				#delete user
 				adminsuffix = "/admins/"
 				payload=None
