@@ -142,11 +142,6 @@ def GetHeaders():
 	headers["X-Cisco-Meraki-API-Key"] = eval("APIKey")
 	return(headers)
 ##############################################################################################	
-def GetOrgsToDelete(Org_url,OrgID):
-	OrgResponse = GetOrgs(dashboard)
-	return(OrgResponse)
-
-##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
 ##############################################################################################	
 	def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):

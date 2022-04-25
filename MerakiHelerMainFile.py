@@ -5,18 +5,17 @@
 if __name__ == '__main__':
 	# Parse the arguments
 	args = parseArguments()
-	
 #############################################################
+#Sort out API keys
+headers = GetHeaders()
+dashboard = ReadyAPIinterface(GetAPIKey())
+#############################################################	
 if (args.remove) != None:
 	LoggingAdd("--WARNING-- Running in delete mode --WARNING-- ", "Ok", "Unknown",args.remove)
 	Org_url = API_URLPrefix+str(args.remove)
 	OrgResponse = GetOrgsToDelete(Org_url,args.remove)
 	RWmode=True	
 	print("--WARNING-- Running in delete mode --WARNING-- ")	
-#############################################################
-#Sort out API keys
-headers = GetHeaders()
-dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
 #Get orgs
 OrgResponse=GetOrgs(dashboard)
@@ -46,6 +45,7 @@ if len((OrgResponse)) > 2 and (args.remove) != None:
 #############################################################
 #Delete this org
 if (args.remove) != None:
+	RWmode=True	
 	DeleteOrg(args.remove,OrgResponse,headers)
 	ReportTitle="Meraki deleted org - " + args.remove
 	LoggingPrint()
