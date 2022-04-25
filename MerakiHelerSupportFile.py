@@ -399,7 +399,7 @@ def DeleteOrg(OrgID, OrgResponse):
 		#Double check before we delete
 		print("*** WARNING: THERE IS NO COMING BACK FROM THIS ***")
 		print(" ")
-		ConfirmName = input("Please confirm the org NAME you are attempting to delete: ")
+		ConfirmName = input("Please confirm the org NAME you are attempting to delete: (or ctrl-x to abort)")
 		if ConfirmName != Orgs.get('name'):
 			print("Wrong name provided... safety abort")
 			sys.exit()		
