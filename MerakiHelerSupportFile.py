@@ -181,7 +181,7 @@ def GetOrgs(headers):
 	Org_response = dashboard.organizations.getOrganizations()
 
 		
-	Tester=(Org_response.json())
+	Tester=(Org_response)#.json())
 	#Handle python behavour when only 1 reponse exists
 	if type(Tester) is dict:
 		OrgResponse=[]
