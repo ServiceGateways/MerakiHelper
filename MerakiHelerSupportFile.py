@@ -471,24 +471,7 @@ def DeleteOrg(OrgID, OrgResponse, headers):
 	
 	#############################################################
 	#Delete Networkds
-		network_suffix = "/networks"
-		networksURL =  API_URLPrefix + Orgs.get('id') + network_suffix
-		networkdata = None
-		LoggingAdd("Deleting networks", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		#LoggingAdd(networksURL, "Ok", Orgs.get('name'),Orgs.get('id'))	
-	
-		networks_response = requests.request('GET', networksURL, headers=headers, data = networkdata)
-		if (APIresponseCheck(networks_response, Orgs.get('name'), Orgs.get('id'))) == False: continue		
-		networks = networks_response.json()
-	
-		Tester=(networks_response.json())
-		#Handle pythong behour when only 1 reponse exists
-		if type(Tester) is dict:
-			Networks=[]
-			Networks.append(networks_response.json())
-			Networks.append("end")
-		if type(Tester) is list:
-			Networks=(networks_response.json())
+		Networks = dashboard.organizations.getOrganizationNetworks(Orgs.get('id'), total_pages='all')
 		
 		for net in Networks:
 			if net == "end":
