@@ -493,9 +493,7 @@ def DeleteOrg(OrgID, OrgResponse):
 	#############################################################
 	
 		#Delete Org
-		payload=None
-		urlrm = API_URLPrefix + str(OrgID)
-		DeleteResponse = requests.request('DELETE', urlrm, headers=headers, data = payload)
+		DeleteResponse = dashboard.organizations.deleteOrganization(Orgs.get('id'))
 		#print("DeleteResponse",DeleteResponse)
 		if (APIresponseCheck(DeleteResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue
 		LoggingAdd("Deleting Org", "OK", Orgs.get('name'),Orgs.get('id'))		
