@@ -355,13 +355,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				SetupIPpInternal(OrgID=Orgs.get('id'))
 	#############################################################
 		#get the saml roles and check if they are set correctly
-		SAMLrole_url_suffix = "/samlRoles"
-		SAMLrole_url =  API_URLPrefix + Orgs.get('id') + SAMLrole_url_suffix
-		SAMLrole_payload = None
-		LoggingAdd("SAML role: accessing", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		SAMLrole_response = requests.request('GET', SAMLrole_url, headers=headers, data = SAMLrole_payload)
-		if (APIresponseCheck(SAMLrole_response, Orgs.get('name'), Orgs.get('id'))) == False: continue		
-		SAMLroleResponse = SAMLrole_response.json()
+		SAMLroleResponse = dashboard.organizations.getOrganizationSamlRoles(Orgs.get('id'))
 		FoundMerakiAdmin = False
 		FoundMerakiRoAdmin = False
 		#Cycle through list and check if they are they and/or correctly configured
