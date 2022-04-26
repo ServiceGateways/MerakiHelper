@@ -61,6 +61,11 @@ AdminRWaccess = "full"
 AdminROname = "Meraki VMB Read Only"
 AdminROaccess = "read-only"
 
+CustomerRWname = "Meraki Admin"
+CustomerRWacess = "full"
+CustomerROname =  "Meraki Read Only"
+CustomerROaccess = "read-only"
+
 #Local admins as a list of directories
 adminA = {}
 adminA["name"] = "VMO2MerakiSupportA@virginmedia.co.uk"
@@ -287,18 +292,35 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		SAMLroleResponse = dashboard.organizations.getOrganizationSamlRoles(Orgs.get('id'))
 		FoundMerakiAdmin = False
 		FoundMerakiRoAdmin = False
+		FoundCustomerAdmin = False
+		FoundCustomerRoAdmin = False
 		#Cycle through list and check if they are they and/or correctly configured
 		for SAMLrole in SAMLroleResponse:
+			
 			if SAMLrole.get('role') == AdminRWname:
 				FoundMerakiAdmin = True
 				if SAMLrole.get('orgAccess') != AdminRWaccess:
 					#make org access full
-					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id'), OrgID = Orgs.get('id'), Access = eval("AdminRWaccess"))
+					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id'), OrgID = Orgs.get('id'), Access = AdminRWaccess)
+			
 			if SAMLrole.get('role') == AdminROname:
 				FoundMerakiRoAdmin = True
 				if SAMLrole.get('orgAccess') != AdminROaccess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = AdminROaccess)
+			
+			if SAMLrole.get('role') == CustomerRWname:
+				FoundCustomerAdmin = True
+				if SAMLrole.get('orgAccess') != CustomerRWacess:
+					#make org access read-only
+					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = CustomerRWacess)
+			
+			if SAMLrole.get('role') == CustomerROname:
+				FoundCustomerRoAdmin = True
+				if SAMLrole.get('orgAccess') != CustomerROaccess:
+					#make org access read-only
+					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = CustomerROaccess)
+		
 		#If they arent found put them in	
 		if FoundMerakiAdmin == False:
 			#create role for Meraki Admin
