@@ -428,47 +428,29 @@ def DeleteOrg(OrgID, OrgResponse):
 					if showaccountonce == False:
 						LoggingAdd("API account: RW", "OK", Orgs.get('name'),Orgs.get('id'))	
 						showaccountonce = True
-			
+			##############################################################
 			#This should delete any admin which is not needed					
 			if admins.get('email') != os.getenv('APIKeyUserName'):
 				#delete user
-				adminsuffix = "/admins/"
-				payload=None
-				urlrm = API_URLPrefix + str(OrgID) + adminsuffix + str(admins.get('id'))
-				DeleteResponse = requests.request('DELETE', urlrm, headers=headers, data = payload)
-				LoggingAdd("Deleting all admin orgs", "OK", Orgs.get('name'),Orgs.get('id'))	
+				DeleteResponse = dashboard.organizations.deleteOrganizationAdmin(Orgs.get('id'), admins.get('id'))
 	##############################################################
 		#Turn off SAML
 		PushNewSaml = dashboard.organizations.updateOrganizationSaml(Orgs.get('id'), enabled=False)
-		#print(PushNewSaml)
-	
-	
 	#############################################################
 	#Delete Networkds
 		Networks = dashboard.organizations.getOrganizationNetworks(Orgs.get('id'), total_pages='all')
-		
 		for net in Networks:
-			if net == "end":
-				continue
-			NetID = net.get('id')
-			Newurl = "https://api.meraki.com/api/v1/networks/" + NetID
-			payload = None
-			#LoggingAdd(networksURL, "Ok", Orgs.get('name'),Orgs.get('id'))	
-			#LoggingAdd(Newurl, "Ok", Orgs.get('name'),Orgs.get('id'))	
-			NetDelresponse = requests.request('DELETE', Newurl, headers=headers, data = payload)
-			
+			NetDelresponse = dashboard.networks.deleteNetwork(net.get('id'))
 	#############################################################
 	#Delete all templates
 		templates = dashboard.organizations.getOrganizationConfigTemplates(Orgs.get('id'))	
 		for templ in templates:
 			templDelresponse = dashboard.organizations.deleteOrganizationConfigTemplate(Orgs.get('id'), templ.get('id'))	
 	#############################################################
-	
-		#Delete Org
+	#Delete Org
 		DeleteResponse = dashboard.organizations.deleteOrganization(Orgs.get('id'))
 		#print("DeleteResponse",DeleteResponse)
 		LoggingAdd("Deleting Org", "OK", Orgs.get('name'),Orgs.get('id'))		
-
 ##############################################################################################	
 # *** END OF DELET ORG FUNCTION ***
 ##############################################################################################	
