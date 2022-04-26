@@ -122,30 +122,16 @@ def GetOrgs(dashboard):
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
 ##############################################################################################	
 	def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
-		LocalAdminUpdate_suffix = "/admins/"
-		LocalAdminUpdate_url =  API_URLPrefix + OrgID + LocalAdminUpdate_suffix + LocalAdminUserID	
-		LocalAdminUpdatePayload = {}
-		LocalAdminUpdatePayload["name"] = LocalAdminName
-		LocalAdminUpdatePayload["orgAccess"] = LocalAdminAccess 
-		LocalAdminUpdatePayload["tags"] = None
-		LoggingAdd("Org admins: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		PushLocalAdminUpdate = requests.request('PUT', LocalAdminUpdate_url, headers=headers, data = json.dumps(LocalAdminUpdatePayload))
 		LoggingAdd("...org admin update complete", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		return PushLocalAdminUpdate.status_code
-		##############################################################
+		PushLocalAdminUpdate = dashboard.organizations.updateOrganizationAdmin(Orgs.get('id'), LocalAdminUserID, name=LocalAdminName, orgAccess=LocalAdminAccess, tags=[])
+		return PushLocalAdminUpdate
+##############################################################
 		#Define function for creating the local admin accounts if needed
-	def CreateLocalAdmin(OrgID, LocalAdminName, LocalAdminAccess, LocalAdminEmail):
-		CreateLocalAdmin_suffix = "/admins/"
-		CreateLocalAdmin_url =  API_URLPrefix + OrgID + CreateLocalAdmin_suffix	
-		CreateLocalAdminPayload = {}
-		CreateLocalAdminPayload["name"]= LocalAdminName
-		CreateLocalAdminPayload["email"]= LocalAdminEmail
-		CreateLocalAdminPayload["orgAccess"]= LocalAdminAccess
-		CreateLocalAdminPayload["tags"]= None
-		LoggingAdd("Org admins: creating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		CreateLocalAdminresponse = requests.request('POST', CreateLocalAdmin_url, headers=headers, data = json.dumps(CreateLocalAdminPayload))
-		return CreateLocalAdminresponse.status_code	
-
+	def CreateLocalAdmin(OrgID, LocalAdminName, LocalAdminAccess, LocalAdminEmail):		
+		CreateLocalAdminresponse = dashboard.organizations.createOrganizationAdmin(OrgID, LocalAdminEmail, LocalAdminName, LocalAdminAccess, tags=[])
+		return CreateLocalAdminresponse
+##############################################################
+	
 def BigLoop(RWmode, OrgResponse, FixOrg):
 	#Start mega loop - looping through orgs
 	for idx, Orgs in enumerate(OrgResponse):
@@ -188,18 +174,12 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					break
 				if OrgAdminResponse[OrgAdminResponse.index(admins)].get('email') == locals.get('email'):
 					#Found one of the VMB accounts
-					
 					Localadmins[Localadmins.index(locals)].update({"located":True})
 					if Localadmins[Localadmins.index(locals)].get('name') != locals.get('name'):
 						#The name is wrong, fix it.
 						if RWmode==True:
 							UpdateLocalAdminOutput = UpdateLocalAdmin(LocalAdminUserID = admins.get('id'), OrgID = Orgs.get('id') , LocalAdminName = locals.get('name'), LocalAdminAccess = locals.get('orgAccess'))
-	
-						if UpdateLocalAdminOutput.str != requests.codes.ok: #This makes no sense
-							print("\t Something went wrong with this request")
-							print("\t Error code was retunred:", UpdateLocalAdminOutput.str )
-							print("\t Skipping this org, will need to be fixed manually")
-							continue
+
 					if Localadmins[Localadmins.index(locals)].get('orgAccess') != locals.get('orgAccess'):
 						#The orgAccess in wrong, fix it.
 						if RWmode == True:
@@ -496,22 +476,12 @@ def LoggingPrint():
 ##############################################################################################	
 #small add new role function to create admins
 def CreateAdmin(OrgID, AdminName, Access):
-	SAMLrole_url_suffix = "/samlRoles"
-	SAMLrole_url =  API_URLPrefix + OrgID + SAMLrole_url_suffix		
-	SAMLrolePayload = ''' {"role":"''' + AdminName + '''","orgAccess":"''' + Access +'''","networks": [],
-   	"tags": []}'''
-	#LoggingAdd("SAML role: creating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-	PushSAMLrole = requests.request('POST', SAMLrole_url, headers=headers, data = SAMLrolePayload)	
+	PushSAMLrole = dashboard.organizations.createOrganizationSamlRole(OrgID, AdminName, Access,tags=[], networks=[])	
 	return PushSAMLrole
 ##############################################################################################
 #small update role function to Update admin role
 def UpdateAdmin(RoleID, OrgID, Access):
-	SAMLroleUpdate_suffix = "/samlRoles/"
-	SAMLroleUpdate_url =  API_URLPrefix + OrgID + SAMLroleUpdate_suffix + RoleID		
-	SAMLroleUpdatePayload = ''' {"orgAccess":"''' + Access +'''","networks": [],
-   	"tags": []}'''
-	LoggingAdd("SAML role: updating", "Ok", Orgs.get('name'),Orgs.get('id'))			
-	PushSAMLroleUpdate = requests.request('PUT', SAMLroleUpdate_url, headers=headers, data = SAMLroleUpdatePayload)
+	PushSAMLroleUpdate = dashboard.organizations.updateOrganizationSamlRole(Orgs.get('id'), "", orgAccess=Access, tags=[], networks=[])
 	return PushSAMLroleUpdate
 ##############################################################################################
 #Clear screen 

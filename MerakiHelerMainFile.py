@@ -7,12 +7,10 @@ if __name__ == '__main__':
 	args = parseArguments()
 #############################################################
 #Sort out API keys
-#headers = GetHeaders()
 dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
 #Get orgs
 OrgResponse=GetOrgs(dashboard)
-
 #############################################################
 #List org access if needed
 if args.list == True:
