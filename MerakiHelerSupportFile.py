@@ -459,17 +459,7 @@ def DeleteOrg(OrgID, OrgResponse):
 			
 	#############################################################
 		templates = dashboard.organizations.getOrganizationConfigTemplates(Orgs.get('id'))	
-		templates = templates_response.json()
-		#print("Templates: ",templates)
-		Tester=(templates_response.json())
-		#Handle pythong behour when only 1 reponse exists
-		if type(Tester) is dict:
-			templates=[]
-			templates.append(templates_response.json())
-			templates.append("end")
-		if type(Tester) is list:
-			templates=(templates_response.json())
-		
+
 		for templ in templates:
 			if templ == "end":
 				continue
