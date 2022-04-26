@@ -95,20 +95,6 @@ LoggingList = []
 LoggingListUplinks = []
 #CSV Export file name 
 
-#Log in security policy pushed in event of checks failed
-UpdatedPolicy= {}
-UpdatedPolicy["accountLockoutAttempts"]= 5
-UpdatedPolicy["idleTimeoutMinutes"]= 15
-UpdatedPolicy["numDifferentPasswords"]= 10
-UpdatedPolicy["passwordExpirationDays"]= 32
-UpdatedPolicy["enforceAccountLockout"]= True
-UpdatedPolicy["enforceLoginIpRanges"]= False
-UpdatedPolicy["enforcePasswordExpiration"]= True
-UpdatedPolicy["enforceStrongPasswords"]= True
-UpdatedPolicy["enforceTwoFactorAuth"]= True
-UpdatedPolicy["enforceDifferentPasswords"]= True
-UpdatedPolicy["enforceIdleTimeout"]= True
-
 ###############################################################################################
 #End of Variables
 ##############################################################################################	
@@ -273,11 +259,10 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 			if RWmode == False:
 				LoggingAdd("Login Security: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
-				#Build new policy
-	
 				#Push new policy
 				LoggingAdd("Login Security: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-				PushNewPolicyLogin = requests.request('PUT', Login_url, headers=headers, data = json.dumps(UpdatedPolicy))
+				response = dashboard.organizations.updateOrganizationLoginSecurity(Orgs.get('id'), enforcePasswordExpiration=True, passwordExpirationDays=32, enforceDifferentPasswords=True, numDifferentPasswords=10, enforceStrongPasswords=True, enforceAccountLockout=True, accountLockoutAttempts=5, enforceIdleTimeout=True, idleTimeoutMinutes=15, enforceTwoFactorAuth=True, enforceLoginIpRanges=True, loginIpRanges=[], apiAuthentication={'ipRestrictionsForKeys': {'enabled': False, 'ranges': []}})
+							
 			#Do we need to push a new login policy?
 			if PushNewLoginPolicy == False:
 				LoggingAdd("Login Security: ok", "Ok", Orgs.get('name'),Orgs.get('id'))	
@@ -286,7 +271,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		#2nd routine check the IDp settings
 		#Build URL to capture IDp settings
 		SamlResponse = dashboard.organizations.getOrganizationSaml(Orgs.get('id'))
-		
 		#Prepare a small function to be used if IdP disabled or missing
 		def SetupIPpInternal(OrgID):
 			LoggingAdd("IdP: Updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
@@ -301,7 +285,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				response = dashboard.organizations.updateOrganizationSaml(Orgs.get('id'), enabled=True)
 			if RWmode == False:
 				LoggingAdd("SAML enabled: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
-	
 	    #############################################################
 		#Cycle through configured IdPs attemp to find 
 		#############################################################
