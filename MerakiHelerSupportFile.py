@@ -123,6 +123,10 @@ def GetAPIKey():
 def GetOrgs(dashboard):
 	Org_response = dashboard.organizations.getOrganizations()
 	return(Org_response)
+
+def GetOrgDevices(OrgID):
+	DeviceDic = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
+	return(DeviceDic)
 ##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
 ##############################################################################################	
@@ -136,7 +140,6 @@ def GetOrgs(dashboard):
 		CreateLocalAdminresponse = dashboard.organizations.createOrganizationAdmin(OrgID, LocalAdminEmail, LocalAdminName, LocalAdminAccess, tags=[])
 		return CreateLocalAdminresponse
 ##############################################################
-	
 def BigLoop(RWmode, OrgResponse, FixOrg):
 	#Start mega loop - looping through orgs
 	for idx, Orgs in enumerate(OrgResponse):
@@ -362,6 +365,9 @@ def DeleteOrg(OrgID, OrgResponse):
 	
 	for idx, Orgs in enumerate(OrgResponse):
 		if Orgs.get('id') != str(OrgID):
+			continue
+		if len(GetOrgDevices(Orgs.get('id'))) > 0:
+			print ("This org has devices attached still, unclaim them first")
 			continue
 		print(" ")
 		print("Org:  ", Orgs.get('name'))
