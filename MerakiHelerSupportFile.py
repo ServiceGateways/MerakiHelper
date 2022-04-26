@@ -110,6 +110,7 @@ def ReadyAPIinterface(APIKey):
 	return(dashboard)
 
 def GetAPIKey():
+	print("Decrypting API Keys...")
 	load_dotenv(dotenv_path="/usr/local/scripts/.meraki.env") 
 	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
 	return(APIKey)
@@ -117,18 +118,6 @@ def GetAPIKey():
 def GetOrgs(dashboard):
 	Org_response = dashboard.organizations.getOrganizations()
 	return(Org_response)
-##############################################################################################	
-
-def GetHeaders():
-	print("Decrypting API Keys...")
-	# Build headers for API call
-	headers = {}
-	headers["Content-Type"] = "application/json"
-	headers["Accept"] = "application/json"
-	load_dotenv(dotenv_path="/usr/local/scripts/.meraki.env") 
-	APIKey=API(os.getenv('APIKeyUserName'),os.getenv('APIKeyStored'))
-	headers["X-Cisco-Meraki-API-Key"] = eval("APIKey")
-	return(headers)
 ##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
 ##############################################################################################	
