@@ -512,6 +512,7 @@ def LoggingAdd(Description, StatusCode, Org, OrgRef):
 ##############################################################################################	
 #Prints on screen the logging List
 def LoggingPrint():
+	screen_clear()
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
 	LogTable = PrettyTable(['Date', 'Time', 'Description', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
 	for LogEntries in LoggingList:
