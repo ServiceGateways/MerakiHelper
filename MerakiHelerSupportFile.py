@@ -548,7 +548,7 @@ def runningxxx(LoopNumber,OrgResponse):
 # Pull arguments from command line
 def parseArguments():
     # Create argument parser
-    parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser()
     # Optional arguments
 	parser.add_argument("--fix", help="Fix an org not in compliance <specify Org ID>", type=int)
 	parser.add_argument("--remove", help="Delete this empty org <specify Org ID>", type=int)
