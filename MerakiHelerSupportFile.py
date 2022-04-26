@@ -657,7 +657,7 @@ def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		DeviceStatus = dashboard.organizations.getOrganizationDevicesStatuses(Orgs.get('id'), total_pages='all')
-			for Devices in DeviceStatus
+			for Devices in DeviceStatus:
 				if Devices.get('status') == "online":
 					LoggingAdd(Devices.get('name'), "Ok", Orgs.get('name'), Orgs.get('id'))
 				if Devices.get('status') != "online":
