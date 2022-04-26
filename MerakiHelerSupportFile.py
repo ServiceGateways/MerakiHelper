@@ -289,14 +289,8 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		
 		#Prepare a small function to be used if IdP disabled or missing
 		def SetupIPpInternal(OrgID):
-			IDp_url_suffix = "/saml/idps"
-			IDp_url =  API_URLPrefix + OrgID + IDp_url_suffix	
-			IDpPayload = {}
-			IDpPayload["idpId"] = "ab0c1de23Fg"
-			IDpPayload["x509certSha1Fingerprint"] = eval("x509certSha1Fingerprint")
-			IDpPayload["sloLogoutUrl"] = eval("sloLogoutUrl")
 			LoggingAdd("IdP: Updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-			PushIDp = requests.request('POST', IDp_url, headers=headers, data = json.dumps(IDpPayload))
+			PushIDp = dashboard.organizations.createOrganizationSamlIdp(Orgs.get('id'), x509certSha1Fingerprint, sloLogoutUrl)
 			return PushIDp
 		#Is SAML / IdP disabled? If so enable it and call function
 		if SamlResponse.get('enabled') == False:
@@ -304,20 +298,14 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("SAML enabled: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
 				LoggingAdd("SAML enabled: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-				NewJsonBlobForUpdatedSaml = {}
-				NewJsonBlobForUpdatedSaml["enabled"] = "true"
-				PushNewSaml = requests.request('PUT', Saml_url, headers=headers, data = json.dumps(NewJsonBlobForUpdatedSaml))
+				response = dashboard.organizations.updateOrganizationSaml(Orgs.get('id'), enabled=True)
 			if RWmode == False:
 				LoggingAdd("SAML enabled: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
-			#if RWmode == True:	
-				#Call function to add IdP setup for UMS (VMB-IAM)
-				#SetupIPpInternalResponse=SetupIPpInternal(OrgID=Orgs.get('id'))
-				#if (APIresponseCheck(SetupIPpInternalResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue
-		#Is Saml enabled but mis-configured
-		IdP_Configured = dashboard.organizations.getOrganizationSamlIdps(Orgs.get('id'))
+	
 	    #############################################################
 		#Cycle through configured IdPs attemp to find 
 		#############################################################
+		IdP_Configured = dashboard.organizations.getOrganizationSamlIdps(Orgs.get('id'))
 		IdPsFound = False
 		IdPsConfiguredCorrect = False
 		for IdPs in IdP_Configured:
@@ -331,14 +319,8 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				if RWmode == False:
 					LoggingAdd("IdP Integration: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 				if RWmode == True:	
-					UpdateIDp_url_suffix = "/saml/idps/"
-					UpdateIDp_url =  API_URLPrefix + Orgs.get('id') + UpdateIDp_url_suffix + IdPsID
 					LoggingAdd("IdP Integration: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-					IdPUpdatePayload = {}
-					IdPUpdatePayload["x509certSha1Fingerprint"] = eval("x509certSha1Fingerprint")
-					IdPUpdatePayload["sloLogoutUrl"] = eval("sloLogoutUrl")
-					#print(IdPUpdatePayload)
-					UpdateIdP = requests.request('PUT', UpdateIDp_url, headers=headers, data = json.dumps(IdPUpdatePayload))
+					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint, sloLogoutUrl)
 		#If IdPsFound == False then we didnt find the IdP settings, so put them back
 		if IdPsFound == False:
 			if RWmode == False:
