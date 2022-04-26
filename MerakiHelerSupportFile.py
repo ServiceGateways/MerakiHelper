@@ -555,8 +555,9 @@ def parseArguments():
    
     parser.add_argument("--search", help="Search org names for <string>", type=str)
     parser.add_argument("--list", help="Lists all orgs the script has access to", action="store_true")
-    parser.add_argument("--up", help="List MX Appliances with WAN interface issues", action="store_true")
+    parser.add_argument("--int", help="List MX Appliances with WAN interface issues", action="store_true")
     parser.add_argument("--review", help="Compliance check for ops", action="store_true")
+	parser.add_argument("--down", help="List devices which are down", action="store_true")
     parser.add_argument("--version", action="version", version='%(prog)s - Version 2.1')
     #parser.add_argument("--api", help="Plain text API", type=str)
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
@@ -638,8 +639,6 @@ def DeviceUp(uplinks,serial,name,id):
 ##############################################################################################		
 def CheckUP(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
-		if Orgs == "end":
-			continue
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		#get uplinks
 		Uplinkresponse=GetUplinkStatus(Orgs.get('id'))		
@@ -654,6 +653,16 @@ def CheckUP(OrgResponse):
 				continue
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
+##############################################################################################		
+def CheckDeviceDown(OrgResponse):
+	for idx, Orgs in enumerate(OrgResponse):
+		runningxxx(idx+1,OrgResponse) #Show progress on screen
+		DeviceStatus = dashboard.organizations.getOrganizationDevicesStatuses(Orgs.get('id'), total_pages='all')
+			for Devices in DeviceStatus
+				if Devices.get('status') == "online":
+					LoggingAdd(Devices.get('name'), "Ok", Orgs.get('name'), Orgs.get('id'))
+				if Devices.get('status') != "online":
+					LoggingAdd(Devices.get('name'), "Err", Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 # End of Functions
 ##############################################################################################

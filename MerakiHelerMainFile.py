@@ -62,4 +62,11 @@ if (args.up) == True:
 	LoggingUplinkPrint()
 	#Logging2CSVandXLS(ReportTitle)
 #############################################################
-
+#Run Compliance report
+if (args.down) == True:
+	runningxxx(1, OrgResponse) #Show program is running.
+	CheckDeviceDown(OrgResponse)
+	ReportTitle="Meraki Device Report" 
+	LoggingPrint()
+	Logging2CSVandXLS(ReportTitle)
+#############################################################
