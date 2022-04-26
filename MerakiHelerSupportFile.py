@@ -302,19 +302,16 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				if SAMLrole.get('orgAccess') != AdminRWaccess:
 					#make org access full
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id'), OrgID = Orgs.get('id'), Access = AdminRWaccess)
-			
 			if SAMLrole.get('role') == AdminROname:
 				FoundMerakiRoAdmin = True
 				if SAMLrole.get('orgAccess') != AdminROaccess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = AdminROaccess)
-			
 			if SAMLrole.get('role') == CustomerRWname:
 				FoundCustomerAdmin = True
 				if SAMLrole.get('orgAccess') != CustomerRWacess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = CustomerRWacess)
-			
 			if SAMLrole.get('role') == CustomerROname:
 				FoundCustomerRoAdmin = True
 				if SAMLrole.get('orgAccess') != CustomerROaccess:
@@ -334,9 +331,18 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
 				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), AdminName = eval("AdminROname"), Access = eval("AdminROaccess"))
-		#Move to next org, avoid Meraki API Gateway throttling. Basic, but effective
-		time.sleep(0.2)
-	
+		if FoundCustomerAdmin == False:
+			#create role for Meraki Admin
+			if RWmode == False:
+				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
+			if RWmode == True:	
+				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), CustomerRWname, CustomerRWacess)				
+		if FoundCustomerRoAdmin == False:
+			#create role for Meraki RO admin
+			if RWmode == False:
+				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
+			if RWmode == True:
+				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), CustomerROname, CustomerROaccess)
 	
 ##############################################################################################	
 # *** BIG DELETE FUNCTIONS ***
