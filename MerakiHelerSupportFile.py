@@ -278,7 +278,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				#Push new policy
 				LoggingAdd("Login Security: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
 				PushNewPolicyLogin = requests.request('PUT', Login_url, headers=headers, data = json.dumps(UpdatedPolicy))
-				if (APIresponseCheck(PushNewPolicyLogin, Orgs.get('name'), Orgs.get('id'))) == False: continue
 			#Do we need to push a new login policy?
 			if PushNewLoginPolicy == False:
 				LoggingAdd("Login Security: ok", "Ok", Orgs.get('name'),Orgs.get('id'))	
@@ -308,7 +307,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				NewJsonBlobForUpdatedSaml = {}
 				NewJsonBlobForUpdatedSaml["enabled"] = "true"
 				PushNewSaml = requests.request('PUT', Saml_url, headers=headers, data = json.dumps(NewJsonBlobForUpdatedSaml))
-				if (APIresponseCheck(PushNewSaml, Orgs.get('name'), Orgs.get('id'))) == False: continue	
 			if RWmode == False:
 				LoggingAdd("SAML enabled: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			#if RWmode == True:	
@@ -341,7 +339,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					IdPUpdatePayload["sloLogoutUrl"] = eval("sloLogoutUrl")
 					#print(IdPUpdatePayload)
 					UpdateIdP = requests.request('PUT', UpdateIDp_url, headers=headers, data = json.dumps(IdPUpdatePayload))
-					if (APIresponseCheck(UpdateIdP, Orgs.get('name'), Orgs.get('id'))) == False: continue	
 		#If IdPsFound == False then we didnt find the IdP settings, so put them back
 		if IdPsFound == False:
 			if RWmode == False:
@@ -360,13 +357,11 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				if SAMLrole.get('orgAccess') != AdminRWaccess:
 					#make org access full
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id'), OrgID = Orgs.get('id'), Access = eval("AdminRWaccess"))
-					if (APIresponseCheck(UpdateAdminResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue				
 			if SAMLrole.get('role') == AdminROname:
 				FoundMerakiRoAdmin = True
 				if SAMLrole.get('orgAccess') != AdminROaccess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = AdminROaccess)
-					if (APIresponseCheck(UpdateAdminResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue	
 		#If they arent found put them in	
 		if FoundMerakiAdmin == False:
 			#create role for Meraki Admin
@@ -380,7 +375,6 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
 				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), AdminName = eval("AdminROname"), Access = eval("AdminROaccess"))
-				if (APIresponseCheck(CreateAdminResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue	
 		#Move to next org, avoid Meraki API Gateway throttling. Basic, but effective
 		time.sleep(0.2)
 	
@@ -442,13 +436,11 @@ def DeleteOrg(OrgID, OrgResponse):
 				payload=None
 				urlrm = API_URLPrefix + str(OrgID) + adminsuffix + str(admins.get('id'))
 				DeleteResponse = requests.request('DELETE', urlrm, headers=headers, data = payload)
-				if (APIresponseCheck(DeleteResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue
 				LoggingAdd("Deleting all admin orgs", "OK", Orgs.get('name'),Orgs.get('id'))	
 	##############################################################
 		#Turn off SAML
 		PushNewSaml = dashboard.organizations.updateOrganizationSaml(Orgs.get('id'), enabled=False)
 		#print(PushNewSaml)
-		if (APIresponseCheck(PushNewSaml, Orgs.get('name'), Orgs.get('id'))) == False: continue	
 	
 	
 	#############################################################
@@ -464,7 +456,6 @@ def DeleteOrg(OrgID, OrgResponse):
 			#LoggingAdd(networksURL, "Ok", Orgs.get('name'),Orgs.get('id'))	
 			#LoggingAdd(Newurl, "Ok", Orgs.get('name'),Orgs.get('id'))	
 			NetDelresponse = requests.request('DELETE', Newurl, headers=headers, data = payload)
-			if (APIresponseCheck(NetDelresponse, Orgs.get('name'), Orgs.get('id'))) == False: continue		
 			
 	#############################################################
 		templates = dashboard.organizations.getOrganizationConfigTemplates(Orgs.get('id'))	
@@ -489,14 +480,12 @@ def DeleteOrg(OrgID, OrgResponse):
 			#LoggingAdd(templatesURL, "Ok", Orgs.get('name'),Orgs.get('id'))	
 			LoggingAdd(Newurl, "Ok", Orgs.get('name'),Orgs.get('id'))	
 			templDelresponse = requests.request('DELETE', Newurl, headers=headers, data = payload)
-			if (APIresponseCheck(templDelresponse, Orgs.get('name'), Orgs.get('id'))) == False: continue		
 			
 	#############################################################
 	
 		#Delete Org
 		DeleteResponse = dashboard.organizations.deleteOrganization(Orgs.get('id'))
 		#print("DeleteResponse",DeleteResponse)
-		if (APIresponseCheck(DeleteResponse, Orgs.get('name'), Orgs.get('id'))) == False: continue
 		LoggingAdd("Deleting Org", "OK", Orgs.get('name'),Orgs.get('id'))		
 
 ##############################################################################################	
@@ -640,19 +629,7 @@ def parseArguments():
     args = parser.parse_args()
     parser.parse_args(args=None if sys.argv[1:] else ['--help'])
     return args
-##############################################################################################
-#Check API response for failure codes... its a bit broad but had issues with codes.ok
-def APIresponseCheck(APIresponse, OrgNameAPIresponse, OrgIDAPIresponse):
-	if int(APIresponse.status_code) < 199 or int(APIresponse.status_code) > 299: 
-		LoggingAdd("Something went wrong with this request", "Err", OrgNameAPIresponse,OrgIDAPIresponse)	
-		LoggingAdd(("Error code was retunred:", APIresponse), "Err", OrgNameAPIresponse,OrgIDAPIresponse)	
-		LoggingAdd("Skipping this org, will need to be fixed manually", "Err", OrgNameAPIresponse,OrgIDAPIresponse)
-		return(False)
-	if APIresponse:
-		return(True)	
-	else:
-		return(False)
-	return(True)
+
 ##############################################################################################
 #Prepare API
 def API(a,b):
