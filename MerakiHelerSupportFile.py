@@ -264,7 +264,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				#Push new policy
 				print("External IP =",external_ip)
 				LoggingAdd("Login Security: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-				response = dashboard.organizations.updateOrganizationLoginSecurity(Orgs.get('id'), enforcePasswordExpiration=True, passwordExpirationDays=32, enforceDifferentPasswords=True, numDifferentPasswords=10, enforceStrongPasswords=True, enforceAccountLockout=True, accountLockoutAttempts=5, enforceIdleTimeout=True, idleTimeoutMinutes=15, enforceTwoFactorAuth=True, enforceLoginIpRanges=True, loginIpRanges=[], apiAuthentication={'ipRestrictionsForKeys': {'enabled': False, 'ranges': [external_ip]}})
+				response = dashboard.organizations.updateOrganizationLoginSecurity(Orgs.get('id'), enforcePasswordExpiration=True, passwordExpirationDays=32, enforceDifferentPasswords=True, numDifferentPasswords=10, enforceStrongPasswords=True, enforceAccountLockout=True, accountLockoutAttempts=5, enforceIdleTimeout=True, idleTimeoutMinutes=15, enforceTwoFactorAuth=True, enforceLoginIpRanges=True, loginIpRanges=[external_ip], apiAuthentication={'ipRestrictionsForKeys': {'enabled': False, 'ranges': []}})
 							
 			#Do we need to push a new login policy?
 			if PushNewLoginPolicy == False:
