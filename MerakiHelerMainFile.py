@@ -53,16 +53,23 @@ if (args.fix) != None:
 	LoggingPrint()
 	Logging2CSVandXLS(ReportTitle)	
 #############################################################
-#Run Up report
-if (args.up) == True:
+#Run interface report up/down
+if (args.int) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
-	print("here")
 	CheckUP(OrgResponse)
-	ReportTitle="Meraki Up-Down Report" 
+	ReportTitle="Meraki Interface up/down Report" 
 	LoggingUplinkPrint()
-	#Logging2CSVandXLS(ReportTitle)
+	Logging2CSVandXLS(ReportTitle)
 #############################################################
-#Run Compliance report
+#Run interface report loss
+if (args.loss) == True:
+	runningxxx(1, OrgResponse) #Show program is running.
+	CheckLoss(OrgResponse)
+	ReportTitle="Meraki Interface Loss Report" 
+	LoggingUplinkPrint()
+	Logging2CSVandXLS(ReportTitle)
+##########################################################################################################################
+#Run Device Down report
 if (args.down) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	CheckDeviceDown(OrgResponse)

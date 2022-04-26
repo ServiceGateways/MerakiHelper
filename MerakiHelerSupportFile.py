@@ -555,6 +555,7 @@ def parseArguments():
 	parser.add_argument("--search", help="Search org names for <string>", type=str)
 	parser.add_argument("--list", help="Lists all orgs the script has access to", action="store_true")
 	parser.add_argument("--int", help="List MX Appliances with WAN interface issues", action="store_true")
+	parser.add_argument("--loss", help="List MX Appliances with WAN interface issues", action="store_true")
 	parser.add_argument("--review", help="Compliance check for ops", action="store_true")
 	parser.add_argument("--down", help="List devices which are down", action="store_true")
 	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.1')
@@ -662,6 +663,13 @@ def CheckDeviceDown(OrgResponse):
 				LoggingAdd(Devices.get('name'), "Ok", Orgs.get('name'), Orgs.get('id'))
 			if Devices.get('status') != "online":
 				LoggingAdd(Devices.get('name'), "Err", Orgs.get('name'), Orgs.get('id'))
+##############################################################################################
+def CheckLoss(OrgResponse):
+	for idx, Orgs in enumerate(OrgResponse):
+		runningxxx(idx+1,OrgResponse) #Show progress on screen
+		DeviceStatus = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
+		for Devices in DeviceStatus:
+			print(Devices)
 ##############################################################################################
 # End of Functions
 ##############################################################################################
