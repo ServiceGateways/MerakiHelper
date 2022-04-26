@@ -43,7 +43,9 @@ except Exception as e:
 #Variables...
 #############################################################
 Devmode=False
-external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
+external_ip = requests.get('https://checkip.amazonaws.com').text.strip()
+
+
 Org_payload = None
 API_URLPrefix = "https://api.meraki.com/api/v1/organizations/" 
 
