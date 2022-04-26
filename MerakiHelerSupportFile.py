@@ -458,19 +458,10 @@ def DeleteOrg(OrgID, OrgResponse):
 			NetDelresponse = requests.request('DELETE', Newurl, headers=headers, data = payload)
 			
 	#############################################################
+	#Delete all templates
 		templates = dashboard.organizations.getOrganizationConfigTemplates(Orgs.get('id'))	
-
 		for templ in templates:
-			if templ == "end":
-				continue
-			slash="/"
-			templID = slash+templ.get('id')
-			Newurl = templatesURL + templID
-			payload = None
-			#LoggingAdd(templatesURL, "Ok", Orgs.get('name'),Orgs.get('id'))	
-			LoggingAdd(Newurl, "Ok", Orgs.get('name'),Orgs.get('id'))	
-			templDelresponse = requests.request('DELETE', Newurl, headers=headers, data = payload)
-			
+			templDelresponse = dashboard.organizations.deleteOrganizationConfigTemplate(Orgs.get('id'), templ.get('id'))	
 	#############################################################
 	
 		#Delete Org
