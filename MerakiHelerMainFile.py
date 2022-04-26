@@ -7,7 +7,6 @@ if __name__ == '__main__':
 	args = parseArguments()
 #############################################################
 #Sort out API keys
-print(external_ip)
 #headers = GetHeaders()
 dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
