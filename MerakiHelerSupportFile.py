@@ -336,13 +336,13 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:	
-				CreateAdminResponse = CreateAdmin(Orgs.get('id'), CustomerRWname, CustomerRWacess)				
+				CreateAdminResponse = CreateAdmin(Orgs.get('id'), eval(CustomerRWname), eval(CustomerRWacess))				
 		if FoundCustomerRoAdmin == False:
 			#create role for Meraki RO admin
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
-				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), CustomerROname, CustomerROaccess)
+				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), eval(CustomerROname), eval(CustomerROaccess))
 	
 ##############################################################################################	
 # *** BIG DELETE FUNCTIONS ***
