@@ -367,7 +367,7 @@ def DeleteOrg(OrgID, OrgResponse):
 		if Orgs.get('id') != str(OrgID):
 			continue
 		if len(GetOrgDevices(Orgs.get('id'))) > 0:
-			print ("This org has devices attached still, unclaim them first")
+			LoggingAdd("Devices still in org", "Err", Orgs.get('name'), Orgs.get('id'))
 			continue
 		print(" ")
 		print("Org:  ", Orgs.get('name'))
