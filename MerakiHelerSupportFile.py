@@ -302,21 +302,26 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				if SAMLrole.get('orgAccess') != AdminRWaccess:
 					#make org access full
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id'), OrgID = Orgs.get('id'), Access = AdminRWaccess)
+					LoggingAdd("SAML role updated", "Ok", Orgs.get('name'),Orgs.get('id'))	
 			if SAMLrole.get('role') == AdminROname:
 				FoundMerakiRoAdmin = True
 				if SAMLrole.get('orgAccess') != AdminROaccess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = AdminROaccess)
+					LoggingAdd("SAML role updated", "Ok", Orgs.get('name'),Orgs.get('id'))	
 			if SAMLrole.get('role') == CustomerRWname:
 				FoundCustomerAdmin = True
 				if SAMLrole.get('orgAccess') != CustomerRWacess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = CustomerRWacess)
+					LoggingAdd("SAML role updated", "Ok", Orgs.get('name'),Orgs.get('id'))	
 			if SAMLrole.get('role') == CustomerROname:
 				FoundCustomerRoAdmin = True
 				if SAMLrole.get('orgAccess') != CustomerROaccess:
 					#make org access read-only
 					UpdateAdminResponse=UpdateAdmin(RoleID = SAMLrole.get('id') ,OrgID = Orgs.get('id'), Access = CustomerROaccess)
+					LoggingAdd("SAML role updated", "Ok", Orgs.get('name'),Orgs.get('id'))	
+
 		
 		#If they arent found put them in	
 		if FoundMerakiAdmin == False:
@@ -325,24 +330,29 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:	
 				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), AdminName = eval("AdminRWname"), Access = eval("AdminRWaccess"))
+				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))	
 		if FoundMerakiRoAdmin == False:
 			#create role for Meraki RO admin
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
 				CreateAdminResponse = CreateAdmin(OrgID = Orgs.get('id'), AdminName = eval("AdminROname"), Access = eval("AdminROaccess"))
+				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))	
 		if FoundCustomerAdmin == False:
 			#create role for Meraki Admin
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:	
-				CreateAdminResponse = CreateAdmin(Orgs.get('id'), eval("CustomerRWname"), eval("CustomerRWacess"))				
+				CreateAdminResponse = CreateAdmin(Orgs.get('id'), eval("CustomerRWname"), eval("CustomerRWacess"))		
+				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))			
 		if FoundCustomerRoAdmin == False:
 			#create role for Meraki RO admin
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
 				CreateAdminResponse = CreateAdmin(Orgs.get('id'), eval("CustomerROname"), eval("CustomerROaccess"))
+				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))	
+
 	
 ##############################################################################################	
 # *** BIG DELETE FUNCTIONS ***
