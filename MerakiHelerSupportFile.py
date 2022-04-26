@@ -43,7 +43,7 @@ except Exception as e:
 #Variables...
 #############################################################
 Devmode=False
-
+external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
 Org_payload = None
 API_URLPrefix = "https://api.meraki.com/api/v1/organizations/" 
 
@@ -260,8 +260,9 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Login Security: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
 				#Push new policy
+				print("External IP =",external_ip)
 				LoggingAdd("Login Security: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-				response = dashboard.organizations.updateOrganizationLoginSecurity(Orgs.get('id'), enforcePasswordExpiration=True, passwordExpirationDays=32, enforceDifferentPasswords=True, numDifferentPasswords=10, enforceStrongPasswords=True, enforceAccountLockout=True, accountLockoutAttempts=5, enforceIdleTimeout=True, idleTimeoutMinutes=15, enforceTwoFactorAuth=True, enforceLoginIpRanges=True, loginIpRanges=[], apiAuthentication={'ipRestrictionsForKeys': {'enabled': False, 'ranges': []}})
+				response = dashboard.organizations.updateOrganizationLoginSecurity(Orgs.get('id'), enforcePasswordExpiration=True, passwordExpirationDays=32, enforceDifferentPasswords=True, numDifferentPasswords=10, enforceStrongPasswords=True, enforceAccountLockout=True, accountLockoutAttempts=5, enforceIdleTimeout=True, idleTimeoutMinutes=15, enforceTwoFactorAuth=True, enforceLoginIpRanges=True, loginIpRanges=[], apiAuthentication={'ipRestrictionsForKeys': {'enabled': False, 'ranges': [external_ip]}})
 							
 			#Do we need to push a new login policy?
 			if PushNewLoginPolicy == False:
