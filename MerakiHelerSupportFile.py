@@ -513,7 +513,12 @@ def LoggingAdd(Description, StatusCode, Org, OrgRef):
 #Prints on screen the logging List
 def LoggingPrint():
 	screen_clear()
+	print(" ")
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
+	print(" ")
+	print("This is a: ", ReportTitle)
+	print(" ")
+
 	LogTable = PrettyTable(['Date', 'Time', 'Description', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
 	for LogEntries in LoggingList:
 		LogTable.add_row([LogEntries.get('Date'), LogEntries.get('Time'),LogEntries.get('Description'),LogEntries.get('StatusCode'),LogEntries.get('Org'),LogEntries.get('OrgRef')])
@@ -672,7 +677,7 @@ def CheckLoss(OrgResponse):
 			TimeSeries = Interfaces.get('timeSeries')
 			for statistics in TimeSeries:
 				print(statistics.get('lossPercent'))
-				if float(statistics.get('lossPercent')) > 5 or statistics.get('lossPercent') == "0.0":
+				if float(statistics.get('lossPercent')) > 5 or statistics.get('lossPercent') == "0.0": 
 					CompressedDesc = (Orgs.get('serial') + " " + Orgs.get('uplink'))
 					CompressedStatus = ( "Err loss = " + TimeSeries.get('lossPercent'))
 					LoggingAdd(CompressedDesc , CompressedStatus , Orgs.get('name'), Orgs.get('id'))
