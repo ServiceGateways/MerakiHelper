@@ -684,7 +684,8 @@ def CheckLoss(OrgResponse):
 					print("in")
 					CompressedDesc = (Orgs.get('serial') , Interfaces.get('uplink'))
 					CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
-					LoggingAdd(CompressedDesc , CompressedStatus , Orgs.get('name'), Orgs.get('id'))
+					LoggingAddUplinks(Orgs.get('serial'),Interfaces.get('uplink'), CompressedStatus, Orgs.get('name'), Orgs.get('id')):
+					
 
 ##############################################################################################
 # End of Functions
