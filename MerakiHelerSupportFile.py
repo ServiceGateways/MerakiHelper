@@ -667,9 +667,12 @@ def CheckUP(OrgResponse):
 def GetDeviceName(Serial):
 	try: 
 		DeviceInfo = dashboard.devices.getDevice(Serial)
-		DeviceName=DeviceInfo.get('name')
+		if str(DeviceInfo.get('name')) == "None":
+			DeviceName = "Unnamed Device"
+		else:
+			DeviceName=DeviceInfo.get('name')
 	except:
-		DeviceName = "Unknown"
+		DeviceName = "Unnamed Device"
 	return(DeviceName)
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
