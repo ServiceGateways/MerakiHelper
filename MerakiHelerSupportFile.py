@@ -667,9 +667,12 @@ def CheckDeviceDown(OrgResponse):
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
-		DeviceStatus = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
-		for Devices in DeviceStatus:
-			print(Devices)
+		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
+		for Interfaces in InterfacesStats:
+			TimeSeries = Interfaces.get('timeSeries')
+			for stats in TimeSeries:
+				if TimeSeries.get('lossPercent') > 5:
+					LoggingAdd((Orgs.get('serial'),(Orgs.get('uplink')), ("Err loss = ",TimeSeries.get('lossPercent')), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 # End of Functions
 ##############################################################################################
