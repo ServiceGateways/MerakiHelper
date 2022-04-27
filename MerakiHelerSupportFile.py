@@ -100,6 +100,7 @@ Localadmins = [adminA, adminB, adminC, adminD]
 #list for log entries
 LoggingList = []
 LoggingListUplinks = []
+LoggingListUplinks
 #CSV Export file name 
 
 ###############################################################################################
@@ -635,7 +636,7 @@ def RemoveDups(DictRAW):
 ##############################################################################################	
 #Prints on screen the logging List
 def LoggingUplinkPrint(ReportTitle, Comment):
-	LoggingListUplinks=RemoveDups(LoggingListUplinks)
+	LoggingListUplinksDeDup=RemoveDups(LoggingListUplinks)
 	screen_clear()
 	print(" ")
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
@@ -643,7 +644,7 @@ def LoggingUplinkPrint(ReportTitle, Comment):
 	print("This is a: ", ReportTitle, Comment)
 	print(" ")
 	LogTable = PrettyTable(['Date', 'Time', 'Serial','Interface', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
-	for LogEntries in LoggingListUplinks:
+	for LogEntries in LoggingListUplinksDeDup:
 		LogTable.add_row([LogEntries.get('Date'), LogEntries.get('Time'),LogEntries.get('Serial'),LogEntries.get('Interface'),LogEntries.get('StatusCode'),LogEntries.get('Org'),LogEntries.get('OrgRef')])
 	print(LogTable)
 ##############################################################################################		
