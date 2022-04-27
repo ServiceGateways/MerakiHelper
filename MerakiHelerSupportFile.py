@@ -615,7 +615,7 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 	#Blank a directory for tracking logging items
 	LoggingDic = {}
 	LoggingDic["Date"] = str(now.strftime("%d/%m/%Y"))
-	LoggingDic["Time"] = str(now.strftime("%H:%M:%S"))
+	LoggingDic["Time"] = str(now.strftime("%H:%M"))
 	LoggingDic["Serial"] = Serial
 	LoggingDic["Interface"] = Interface
 	LoggingDic["StatusCode"] = StatusCode
