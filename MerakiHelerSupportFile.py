@@ -642,7 +642,7 @@ def DeviceUp(uplinks,serial,name,id):
 	for interfaces in uplinks:
 		if interfaces.get('status') != "active":
 			DeviceStatus=False
-			LoggingAddUplinks(serial,name, " ", name, id)
+			LoggingAddUplinks(serial,GetDeviceName(name), " ", name, id)
 			return(DeviceStatus)
 	return(DeviceStatus)
 ##############################################################################################		
