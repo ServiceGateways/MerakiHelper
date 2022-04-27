@@ -697,7 +697,7 @@ def CheckDeviceDown(OrgResponse):
 			if Devices.get('status') == "online":
 				LoggingAdd(Devices.get('name'), "Ok", Orgs.get('name'), Orgs.get('id'))
 			if Devices.get('status') != "online":
-				LoggingAdd((GetDeviceName(Devices.get('serial')), Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
+				LoggingAdd((GetDeviceName(Devices.get('serial')) + " " + Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
