@@ -511,12 +511,12 @@ def LoggingAdd(Description, StatusCode, Org, OrgRef):
 	return(LoggingList)
 ##############################################################################################	
 #Prints on screen the logging List
-def LoggingPrint():
+def LoggingPrint(ReportTitle, Comment):
 	screen_clear()
 	print(" ")
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
 	print(" ")
-	print("This is a: ", ReportTitle)
+	print("This is a: ", ReportTitle, Comment)
 	print(" ")
 
 	LogTable = PrettyTable(['Date', 'Time', 'Description', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
@@ -625,12 +625,12 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 	return(LoggingListUplinks)
 ##############################################################################################	
 #Prints on screen the logging List
-def LoggingUplinkPrint():
+def LoggingUplinkPrint(ReportTitle, Comment):
 	screen_clear()
 	print(" ")
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
 	print(" ")
-	print("This is a: ", ReportTitle)
+	print("This is a: ", ReportTitle, Comment)
 	print(" ")
 	LogTable = PrettyTable(['Date', 'Time', 'Serial','Interface', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
 	for LogEntries in LoggingListUplinks:
