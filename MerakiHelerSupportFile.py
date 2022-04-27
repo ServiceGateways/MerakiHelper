@@ -626,12 +626,15 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 	return(LoggingListUplinks)
 ##############################################################################################	
 def RemoveDups(DictRAW):
-	result = {}
+	seen = set()
+	new_l = []
+	for d in DictRAW:
+		t = tuple(d.items())
+		if t not in seen:
+			seen.add(t)
+			new_l.append(d)
 
-	for key,value in DictRAW.items():
-		if value not in result.values():
-			result[key] = value
-	return(result)
+	return(new_l)
 ##############################################################################################	
 #Prints on screen the logging List
 def LoggingUplinkPrint(ReportTitle, Comment):
