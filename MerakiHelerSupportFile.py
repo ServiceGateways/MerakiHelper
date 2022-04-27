@@ -698,7 +698,7 @@ def CheckLoss(OrgResponse):
 				#print(int(statistics.get('lossPercent')))
 				if float(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
 					print("in")
-					CompressedDesc = GetDeviceName(Interfaces.get('serial') + " " + Interfaces.get('uplink'))
+					CompressedDesc = GetDeviceName(Interfaces.get('serial')) + " " + Interfaces.get('uplink')
 					CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 					LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
