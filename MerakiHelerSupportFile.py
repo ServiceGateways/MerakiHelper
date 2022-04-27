@@ -673,14 +673,16 @@ def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
+		print(Orgs.get('name'))
 		for Interfaces in InterfacesStats:
+			print(Interfaces.get('uplink'))
 			TimeSeries = Interfaces.get('timeSeries')
 			for statistics in TimeSeries:
 				print(float(statistics.get('lossPercent')))
 				print(int(statistics.get('lossPercent')))
 				if float(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
 					print("in")
-					CompressedDesc = (Orgs.get('serial') , Orgs.get('uplink'))
+					CompressedDesc = (Orgs.get('serial') , Interfaces.get('uplink'))
 					CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 					LoggingAdd(CompressedDesc , CompressedStatus , Orgs.get('name'), Orgs.get('id'))
 
