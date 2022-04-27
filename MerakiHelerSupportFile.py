@@ -636,6 +636,7 @@ def RemoveDups(DictRAW):
 ##############################################################################################	
 #Prints on screen the logging List
 def LoggingUplinkPrint(ReportTitle, Comment):
+	LoggingListUplinksDeDup = []
 	LoggingListUplinksDeDup=RemoveDups(LoggingListUplinks)
 	screen_clear()
 	print(" ")
