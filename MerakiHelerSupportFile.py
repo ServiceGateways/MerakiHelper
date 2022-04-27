@@ -441,8 +441,8 @@ def DeleteOrg(OrgID, OrgResponse):
 #Review the LoggingList, strip out heavy dumps and creates a easy read report
 def Logging2CSVandXLS(prefix): #Convert the Log file into a short report.
 	CSVdate = str((datetime.datetime.now()).strftime("%d%m%Y%H%M"))
-	CSVfilename = prefix + CSVdate +".csv"
-	Xlsfilename = prefix + CSVdate +".xlsx"
+	CSVfilename = prefixs.replace(" ", "") + CSVdate +".csv"
+	Xlsfilename = prefixs.replace(" ", "") + CSVdate +".xlsx"
 	#get a Unique list of orgs from the logs inc. org id and place into a list of dic
 	OrgListfromLogs=[]
 	for LoggingListentries in LoggingList:
@@ -627,7 +627,11 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 #Prints on screen the logging List
 def LoggingUplinkPrint():
 	screen_clear()
+	print(" ")
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
+	print(" ")
+	print("This is a: ", ReportTitle)
+	print(" ")
 	LogTable = PrettyTable(['Date', 'Time', 'Serial','Interface', 'StatusCode', 'Org', 'OrgRef'],align='l',valign='t')
 	for LogEntries in LoggingListUplinks:
 		LogTable.add_row([LogEntries.get('Date'), LogEntries.get('Time'),LogEntries.get('Serial'),LogEntries.get('Interface'),LogEntries.get('StatusCode'),LogEntries.get('Org'),LogEntries.get('OrgRef')])
