@@ -57,7 +57,7 @@ if (args.fix) != None:
 if (args.int) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	CheckUP(OrgResponse)
-	ReportTitle="Meraki Interface up/down Report" 
+	ReportTitle="Meraki Interface up-down Report" 
 	LoggingUplinkPrint()
 	Logging2CSVandXLS(ReportTitle)
 #############################################################
