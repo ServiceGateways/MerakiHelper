@@ -629,8 +629,8 @@ def RemoveDups(DictRAW):
 	result = {}
 
 	for key,value in DictRAW.items():
-    	if value not in result.values():
-        	result[key] = value
+		if value not in result.values():
+			result[key] = value
 	return(result)
 ##############################################################################################	
 #Prints on screen the logging List
