@@ -441,8 +441,8 @@ def DeleteOrg(OrgID, OrgResponse):
 #Review the LoggingList, strip out heavy dumps and creates a easy read report
 def Logging2CSVandXLS(prefix): #Convert the Log file into a short report.
 	CSVdate = str((datetime.datetime.now()).strftime("%d%m%Y%H%M"))
-	CSVfilename = prefixs.replace(" ", "") + CSVdate +".csv"
-	Xlsfilename = prefixs.replace(" ", "") + CSVdate +".xlsx"
+	CSVfilename = prefix.replace(" ", "") + CSVdate +".csv"
+	Xlsfilename = prefix.replace(" ", "") + CSVdate +".xlsx"
 	#get a Unique list of orgs from the logs inc. org id and place into a list of dic
 	OrgListfromLogs=[]
 	for LoggingListentries in LoggingList:
