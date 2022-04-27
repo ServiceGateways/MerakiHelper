@@ -670,8 +670,8 @@ def CheckLoss(OrgResponse):
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
 		for Interfaces in InterfacesStats:
 			TimeSeries = Interfaces.get('timeSeries')
-			for stats in TimeSeries:
-				if TimeSeries.get('lossPercent') > 5:
+			for statistics in TimeSeries:
+				if statistics.get('lossPercent') > 5:
 					CompressedDesc = (Orgs.get('serial') + " " + Orgs.get('uplink'))
 					CompressedStatus = ( "Err loss = " + TimeSeries.get('lossPercent'))
 					LoggingAdd(CompressedDesc , CompressedStatus , Orgs.get('name'), Orgs.get('id'))
