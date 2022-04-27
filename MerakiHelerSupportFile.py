@@ -672,7 +672,7 @@ def CheckLoss(OrgResponse):
 			TimeSeries = Interfaces.get('timeSeries')
 			for stats in TimeSeries:
 				if TimeSeries.get('lossPercent') > 5:
-					LoggingAdd((Orgs.get('serial'),(Orgs.get('uplink')), ("Err loss = ",TimeSeries.get('lossPercent')), Orgs.get('name'), Orgs.get('id'))
+					LoggingAdd( ((Orgs.get('serial'),(Orgs.get('uplink')), ("Err loss = ",TimeSeries.get('lossPercent')), Orgs.get('name'), Orgs.get('id'))
 					
 ##############################################################################################
 # End of Functions
