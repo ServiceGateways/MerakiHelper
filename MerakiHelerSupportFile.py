@@ -663,9 +663,10 @@ def CheckUP(OrgResponse):
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################		
+
 def GetDeviceName(Serial):
 	DeviceInfo = dashboard.devices.getDevice(Serial)
-	return(DeviceInfo.get('name')
+	return(DeviceInfo.get('name'))
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
