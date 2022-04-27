@@ -627,10 +627,10 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 def RemoveDups(DictRAW):
 	seen = []
 	for k,val in DictRAW.items():
-	    if val in seen:
- 	       del DictRAW[k]
- 	   else:
-  	      seen.append(val)
+	if val in seen:
+		del DictRAW[k]
+	else:
+		seen.append(val)
 	return(DictRAW)
 ##############################################################################################	
 #Prints on screen the logging List
