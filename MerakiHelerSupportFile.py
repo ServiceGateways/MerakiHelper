@@ -608,7 +608,7 @@ def GetUplinkStatus(OrgID):
 ##############################################################################################	
 def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 	now = datetime.datetime.now()
-	#Log only hold the last 300 entries
+	#Log only hold the last 5000 entries
 	while (len(LoggingListUplinks) >= 5000):
 		LoggingListUplinks.pop(0)
 	#Blank a directory for tracking logging items
@@ -624,8 +624,18 @@ def LoggingAddUplinks(Serial,Interface, StatusCode, Org, OrgRef):
 	LoggingListUplinks.append(LoggingDic)
 	return(LoggingListUplinks)
 ##############################################################################################	
+def RemoveDups(DictRAW):
+	seen = []
+	for k,val in DictRAW.items():
+	    if val in seen:
+ 	       del DictRAW[k]
+ 	   else:
+  	      seen.append(val)
+	return(DictRAW)
+##############################################################################################	
 #Prints on screen the logging List
 def LoggingUplinkPrint(ReportTitle, Comment):
+	LoggingListUplinks=RemoveDups(LoggingListUplinks)
 	screen_clear()
 	print(" ")
 	print("APIs pushed using: ", os.getenv('APIKeyUserName'))
