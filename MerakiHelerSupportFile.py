@@ -663,6 +663,10 @@ def CheckUP(OrgResponse):
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################		
+def GetDeviceName(Serial):
+	DeviceInfo = dashboard.devices.getDevice(Serial)
+	return(DeviceInfo.get('name')
+##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
@@ -671,7 +675,7 @@ def CheckDeviceDown(OrgResponse):
 			if Devices.get('status') == "online":
 				LoggingAdd(Devices.get('name'), "Ok", Orgs.get('name'), Orgs.get('id'))
 			if Devices.get('status') != "online":
-				LoggingAdd((Devices.get('name'), Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
+				LoggingAdd((GetDeviceName(Devices.get('serial')), Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
