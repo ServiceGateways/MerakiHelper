@@ -642,7 +642,7 @@ def DeviceUp(uplinks,serial,name,id):
 	for interfaces in uplinks:
 		if interfaces.get('status') != "active":
 			DeviceStatus=False
-			LoggingAddUplinks(serial,GetDeviceName(name), " ", name, id)
+			LoggingAddUplinks(serial,GetDeviceName(serial), " ", name, id)
 			return(DeviceStatus)
 	return(DeviceStatus)
 ##############################################################################################		
@@ -665,8 +665,12 @@ def CheckUP(OrgResponse):
 ##############################################################################################		
 
 def GetDeviceName(Serial):
-	DeviceInfo = dashboard.devices.getDevice(Serial)
-	return(DeviceInfo.get('name'))
+	try: 
+		DeviceInfo = dashboard.devices.getDevice(Serial)
+		DeviceName=DeviceInfo.get('name')
+	except:
+		DeviceName = "Unknown"
+	return(DeviceName)
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
