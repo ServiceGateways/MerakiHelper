@@ -59,7 +59,7 @@ if (args.int) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	CheckUP(OrgResponse)
 	ReportTitle="Meraki Interface up-down Report" 
-	Comment = " API used = GET /organizations/{organizationId}/uplinks/statuses. Filtered Device with no issues"
+	Comment = " API used = GET /organizations/{organizationId}/uplinks/statuses. Filtered devices with no issues"
 	LoggingUplinkPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
 #############################################################
@@ -77,7 +77,7 @@ if (args.down) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	CheckDeviceDown(OrgResponse)
 	ReportTitle="Meraki Device Report" 
-	Comment = "API used = GET /organizations/{organizationId}/devices/statuses"
+	Comment = "API used = GET /organizations/{organizationId}/devices/statuses. Unfiltered list"
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
 #############################################################
