@@ -82,7 +82,7 @@ if (args.loss) == True:
 if (args.down) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	CheckDeviceDown(OrgResponse)
-	ReportTitle="Meraki Device Report" 
+	ReportTitle="Meraki Device Down Report" 
 	Comment = "API used = GET /organizations/{organizationId}/devices/statuses. Unfiltered list"
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
