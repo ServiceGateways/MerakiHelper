@@ -18,6 +18,7 @@ if args.list == True:
 	ListOrgAccess(OrgResponse)
 	
 	ReportTitle="Meraki CMDB report - "
+	Comment = ""
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
 	sys.exit()		
@@ -37,6 +38,7 @@ if args.search != None:
 if (args.remove) != None:
 	RWmode=True	
 	DeleteOrg(args.remove,OrgResponse)
+	Comment = ""
 	ReportTitle="Meraki deleted org - " + str(args.remove)
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
@@ -45,6 +47,7 @@ if (args.remove) != None:
 if (args.review) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	BigLoop(False, OrgResponse, 1)
+	Comment = ""
 	ReportTitle="Meraki Compliance Report" 
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
@@ -52,6 +55,7 @@ if (args.review) == True:
 #Run fix on an org
 if (args.fix) != None:
 	BigLoop(True, OrgResponse, args.fix)
+	Comment = ""
 	ReportTitle="Meraki Fix Report" 
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)	
