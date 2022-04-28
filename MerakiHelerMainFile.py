@@ -83,7 +83,7 @@ if (args.down) == True:
 	runningxxx(1, OrgResponse) #Show program is running.
 	CheckDeviceDown(OrgResponse)
 	ReportTitle="Meraki Device Down Report" 
-	Comment = "API used = GET /organizations/{organizationId}/devices/statuses. Unfiltered list"
+	Comment = "API used = GET /organizations/{organizationId}/devices/statuses. Filtered devices with no issues"
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
 #############################################################
