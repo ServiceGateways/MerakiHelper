@@ -214,25 +214,36 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		PushNewLoginPolicy = False
 		if LoginResponse.get('enforcePasswordExpiration') == False:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: enforcePasswordExpiration", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('passwordExpirationDays') != 32:
 			PushNewLoginPolicy = True	
+			LoggingAdd("Login Security: passwordExpirationDays", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('enforceDifferentPasswords') == False:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: enforceDifferentPasswords", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('numDifferentPasswords') != 10:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: numDifferentPasswords", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('enforceStrongPasswords') == False:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: enforceStrongPasswords", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('enforceAccountLockout') == False:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: enforceAccountLockout", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('accountLockoutAttempts') != 5:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: accountLockoutAttempts", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('enforceIdleTimeout') ==False:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: enforceIdleTimeout", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('idleTimeoutMinutes') != 15:
 			PushNewLoginPolicy = True
+			LoggingAdd("Login Security: idleTimeoutMinutes", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('enforceTwoFactorAuth') == False:
 			PushNewLoginPolicy = True	
+			LoggingAdd("Login Security: enforceTwoFactorAuth", "Err", Orgs.get('name'),Orgs.get('id'))
 		if LoginResponse.get('enforceLoginIpRanges') == True:
+			LoggingAdd("Login Security: enforceLoginIpRanges", "Err", Orgs.get('name'),Orgs.get('id'))
 			PushNewLoginPolicy = True
 		#Do we need to push a new login policy?
 		if PushNewLoginPolicy == True:
