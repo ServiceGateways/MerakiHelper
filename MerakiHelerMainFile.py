@@ -26,6 +26,8 @@ if args.list == True:
 if args.search != None:
 	results = FindOrgAndList(OrgResponse, args.search)
 	if results == True:
+		ReportTitle = "Search"
+		Comment = ""
 		LoggingPrint(ReportTitle, Comment)
 	if results != True:
 		print("No orgs found with this search criteria (check it has API access enabled)")
