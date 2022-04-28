@@ -18,7 +18,7 @@ if args.list == True:
 	ListOrgAccess(OrgResponse)
 	
 	ReportTitle="Meraki CMDB report - "
-	Comment = ""
+	Comment = "simple list of orgs which this API has access."
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
 	sys.exit()		
