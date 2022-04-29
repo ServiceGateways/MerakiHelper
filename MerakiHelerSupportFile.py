@@ -719,11 +719,14 @@ def CheckLoss(OrgResponse):
 			for statistics in TimeSeries:
 				#print(float(statistics.get('lossPercent')))
 				#print(int(statistics.get('lossPercent')))
-				if int(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
-					print("in")
-					CompressedDesc = GetDeviceName(Interfaces.get('serial')) + " " + Interfaces.get('uplink')
-					CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
-					LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
+				if statistics.get('lossPercent')) != none:
+					if int(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
+						print("in")
+						CompressedDesc = GetDeviceName(Interfaces.get('serial')) + " " + Interfaces.get('uplink')
+						CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
+						LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
+					else:
+						oggingAddUplinks(Interfaces.get('serial'), "no stats" , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 # End of Functions
 ##############################################################################################
