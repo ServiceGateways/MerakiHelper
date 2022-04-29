@@ -719,7 +719,7 @@ def CheckLoss(OrgResponse):
 			for statistics in TimeSeries:
 				#print(float(statistics.get('lossPercent')))
 				#print(int(statistics.get('lossPercent')))
-				if statistics.get('lossPercent') != none:
+				if statistics.get('lossPercent') != None:
 					if int(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
 						print("in")
 						CompressedDesc = GetDeviceName(Interfaces.get('serial')) + " " + Interfaces.get('uplink')
