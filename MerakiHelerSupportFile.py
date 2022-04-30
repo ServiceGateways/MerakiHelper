@@ -697,7 +697,7 @@ def GetDeviceName(Serial):
 
 	for SerialNames in SerialNameList:
 		if SerialNames.get('serial') == Serial:
-			return SerialNames.get('name')
+			return str(SerialNames.get('name'))
 			print("local lookup")
 		else:
 			try: 
@@ -705,7 +705,7 @@ def GetDeviceName(Serial):
 				if str(DeviceInfo.get('name')) == "None":
 					DeviceName = "Unnamed Device"
 				else:
-					DeviceName=DeviceInfo.get('name')
+					DeviceName=str(DeviceInfo.get('name'))
 					SerialNameEntry["name"] = DeviceInfo.get('name')
 					SerialNameEntry["serial"] = Serial
 					SerialNameList.append(SerialNameEntry)
@@ -734,7 +734,7 @@ def CheckLoss(OrgResponse):
 				#print(int(statistics.get('lossPercent')))
 				if statistics.get('lossPercent') != None:
 					if int(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
-						CompressedDesc = GetDeviceName(Interfaces.get('serial')) & " " & Interfaces.get('uplink')
+						CompressedDesc = GetDeviceName(Interfaces.get('serial')) + " " + Interfaces.get('uplink')
 						CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 						LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 					else:
