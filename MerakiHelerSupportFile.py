@@ -103,8 +103,6 @@ LoggingListUplinks = []
 LoggingListUplinks
 #CSV Export file name 
 
-SerialNameList = []
-SerialNameEntry = {}
 
 
 ###############################################################################################
@@ -718,7 +716,11 @@ def GetDeviceName(Serial):
 			else:
 				GetDeviceNameII(Serial)
 	else:
-		GetDeviceNameII(Serial)
+		GetOrgDevices = dashboard.organizations.getOrganizationDevices(Orgs.get('id'), total_pages='all')
+		for DeviceInfo in GetOrgDevices:
+			SerialNameEntry["name"] = DeviceInfo.get('name')
+			SerialNameEntry["serial"] = Serial
+			SerialNameList.append(SerialNameEntry)
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
@@ -730,6 +732,8 @@ def CheckDeviceDown(OrgResponse):
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
+		SerialNameList = []
+		SerialNameEntry = {}
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
 		print(Orgs.get('name'))
