@@ -692,30 +692,34 @@ def CheckUP(OrgResponse):
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################		
-
+def GetDeviceNameII(Serial):
+	try: 
+		DeviceInfo = dashboard.devices.getDevice(Serial)
+		if str(DeviceInfo.get('name')) == "None":
+			DeviceName = "Unnamed Device"
+		else:
+			DeviceName=str(DeviceInfo.get('name'))
+			SerialNameEntry["name"] = DeviceInfo.get('name')
+			SerialNameEntry["serial"] = Serial
+			SerialNameList.append(SerialNameEntry)
+	except:
+		DeviceName = "Unnamed Device"
+	return(DeviceName)
+##############################################################################################		
 def GetDeviceName(Serial):
 	print(SerialNameList)
-	
-	for SerialNames in SerialNameList:
-		if SerialNames.get('serial') == Serial:
-			print("local lookup")
-			print(SerialNames.get('serial'))
-			print(SerialNames.get('name'))
-			return str(SerialNames.get('name'))
-		else:
-			try: 
-				DeviceInfo = dashboard.devices.getDevice(Serial)
-				if str(DeviceInfo.get('name')) == "None":
-					DeviceName = "Unnamed Device"
-				else:
-					DeviceName=str(DeviceInfo.get('name'))
-					SerialNameEntry["name"] = DeviceInfo.get('name')
-					SerialNameEntry["serial"] = Serial
-					SerialNameList.append(SerialNameEntry)
-			except:
-				DeviceName = "Unnamed Device"
-			return(DeviceName)
-	##############################################################################################		
+	if len(SerialNameList) > 0:	
+		for SerialNames in SerialNameList:
+			if SerialNames.get('serial') == Serial:
+				print("local lookup")
+				print(SerialNames.get('serial'))
+				print(SerialNames.get('name'))
+				return str(SerialNames.get('name'))
+			else:
+				GetDeviceNameII(Serial)
+	else:
+		GetDeviceNameII(Serial)
+##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
