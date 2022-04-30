@@ -694,7 +694,8 @@ def CheckUP(OrgResponse):
 ##############################################################################################		
 
 def GetDeviceName(Serial):
-
+	print(SerialNameList)
+	
 	for SerialNames in SerialNameList:
 		if SerialNames.get('serial') == Serial:
 			print("local lookup")
