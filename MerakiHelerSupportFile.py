@@ -706,7 +706,7 @@ def GetDeviceName(Serial):
 		else:
 			DeviceName=DeviceInfo.get('name')
 			SerialNameEntry["name"] = DeviceInfo.get('name')
-			SerialNameEntry["serial"] = serial
+			SerialNameEntry["serial"] = Serial
 			SerialNameList.append(SerialNameEntry)
 	except:
 		DeviceName = "Unnamed Device"
