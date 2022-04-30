@@ -722,7 +722,8 @@ def GetDeviceName(Serial,OrgID):
 			SerialNameEntry["name"] = DeviceInfo.get('name')
 			SerialNameEntry["serial"] = Serial
 			SerialNameList.append(SerialNameEntry)
-			GetDeviceName(Serial,OrgID)
+			if len(SerialNameList) > 0:	
+				GetDeviceName(Serial,OrgID)
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
