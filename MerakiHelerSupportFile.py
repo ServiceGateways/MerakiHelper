@@ -714,8 +714,9 @@ def GetDeviceName(Serial,OrgID):
 			if SerialNames.get('serial') == Serial:
 				print("local lookup")
 				return str(SerialNames.get('name'))
-			else:
-				GetDeviceNameII(Serial)
+				Found = True
+		if Found != True:
+			GetDeviceNameII(Serial)
 	else:
 		GetOrgDevices = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
 		for DeviceInfo in GetOrgDevices:
