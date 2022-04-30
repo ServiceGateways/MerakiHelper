@@ -103,6 +103,10 @@ LoggingListUplinks = []
 LoggingListUplinks
 #CSV Export file name 
 
+SerialNameList = []
+SerialNameEntry = {}
+
+
 ###############################################################################################
 #End of Variables
 ##############################################################################################	
@@ -690,12 +694,20 @@ def CheckUP(OrgResponse):
 ##############################################################################################		
 
 def GetDeviceName(Serial):
+
+	for SerialNames in SerialNameList:
+		if SerialNames.get('serial') == Serial:
+			return SerialNames.get('name')
+		
 	try: 
 		DeviceInfo = dashboard.devices.getDevice(Serial)
 		if str(DeviceInfo.get('name')) == "None":
 			DeviceName = "Unnamed Device"
 		else:
 			DeviceName=DeviceInfo.get('name')
+			SerialNameEntry["name"] = DeviceInfo.get('name')
+			SerialNameEntry["serial"] = serial
+			SerialNameList.append(SerialNameEntry)
 	except:
 		DeviceName = "Unnamed Device"
 	return(DeviceName)
@@ -726,7 +738,7 @@ def CheckLoss(OrgResponse):
 						CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 						LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 					else:
-						oggingAddUplinks(Interfaces.get('serial'), "no stats" , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
+						LoggingAddUplinks(Interfaces.get('serial'), "no stats" , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 # End of Functions
 ##############################################################################################
