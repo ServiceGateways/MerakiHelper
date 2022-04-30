@@ -700,20 +700,19 @@ def GetDeviceName(Serial):
 			return SerialNames.get('name')
 			print("local lookup")
 		else:
-		
-		try: 
-			DeviceInfo = dashboard.devices.getDevice(Serial)
-			if str(DeviceInfo.get('name')) == "None":
+			try: 
+				DeviceInfo = dashboard.devices.getDevice(Serial)
+				if str(DeviceInfo.get('name')) == "None":
+					DeviceName = "Unnamed Device"
+				else:
+					DeviceName=DeviceInfo.get('name')
+					SerialNameEntry["name"] = DeviceInfo.get('name')
+					SerialNameEntry["serial"] = Serial
+					SerialNameList.append(SerialNameEntry)
+			except:
 				DeviceName = "Unnamed Device"
-			else:
-				DeviceName=DeviceInfo.get('name')
-				SerialNameEntry["name"] = DeviceInfo.get('name')
-				SerialNameEntry["serial"] = Serial
-				SerialNameList.append(SerialNameEntry)
-		except:
-			DeviceName = "Unnamed Device"
-		return(DeviceName)
-##############################################################################################		
+			return(DeviceName)
+	##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
