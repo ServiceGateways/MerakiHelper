@@ -710,6 +710,7 @@ def GetDeviceNameII(Serial):
 ##############################################################################################		
 def GetDeviceName(Serial,OrgID):
 	if len(SerialNameList) > 0:	
+		Found = False
 		for SerialNames in SerialNameList:
 			if SerialNames.get('serial') == Serial:
 				print("local lookup")
