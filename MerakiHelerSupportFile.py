@@ -698,6 +698,8 @@ def GetDeviceName(Serial):
 	for SerialNames in SerialNameList:
 		if SerialNames.get('serial') == Serial:
 			return SerialNames.get('name')
+			print("local lookup")
+			quit()
 		
 	try: 
 		DeviceInfo = dashboard.devices.getDevice(Serial)
