@@ -708,7 +708,7 @@ def GetDeviceNameII(Serial):
 		DeviceName = "Unnamed Device"
 	return(DeviceName)
 ##############################################################################################		
-def GetDeviceName(Serial):
+def GetDeviceName(Serial,OrgID):
 	print(SerialNameList)
 	if len(SerialNameList) > 0:	
 		for SerialNames in SerialNameList:
@@ -720,7 +720,7 @@ def GetDeviceName(Serial):
 			else:
 				GetDeviceNameII(Serial)
 	else:
-		GetOrgDevices = dashboard.organizations.getOrganizationDevices(Orgs.get('id'), total_pages='all')
+		GetOrgDevices = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
 		for DeviceInfo in GetOrgDevices:
 			SerialNameEntry["name"] = DeviceInfo.get('name')
 			SerialNameEntry["serial"] = Serial
@@ -732,7 +732,7 @@ def CheckDeviceDown(OrgResponse):
 		DeviceStatus = dashboard.organizations.getOrganizationDevicesStatuses(Orgs.get('id'), total_pages='all')
 		for Devices in DeviceStatus:
 			if Devices.get('status') != "online":
-				LoggingAdd((GetDeviceName(Devices.get('serial')) + " " + Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
+				LoggingAdd((GetDeviceName(Devices.get('serial'),Orgs.get('id')) + " " + Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
@@ -749,7 +749,7 @@ def CheckLoss(OrgResponse):
 				#print(int(statistics.get('lossPercent')))
 				if statistics.get('lossPercent') != None:
 					if int(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
-						CompressedDesc = str(GetDeviceName(Interfaces.get('serial'))) + " " + Interfaces.get('uplink')
+						CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Orgs.get('id'))) + " " + Interfaces.get('uplink')
 						CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 						LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 					else:
