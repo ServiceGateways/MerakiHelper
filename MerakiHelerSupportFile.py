@@ -709,13 +709,10 @@ def GetDeviceNameII(Serial):
 	return(DeviceName)
 ##############################################################################################		
 def GetDeviceName(Serial,OrgID):
-	print(SerialNameList)
 	if len(SerialNameList) > 0:	
 		for SerialNames in SerialNameList:
 			if SerialNames.get('serial') == Serial:
 				print("local lookup")
-				print(SerialNames.get('serial'))
-				print(SerialNames.get('name'))
 				return str(SerialNames.get('name'))
 			else:
 				GetDeviceNameII(Serial)
@@ -725,6 +722,7 @@ def GetDeviceName(Serial,OrgID):
 			SerialNameEntry["name"] = DeviceInfo.get('name')
 			SerialNameEntry["serial"] = Serial
 			SerialNameList.append(SerialNameEntry)
+			GetDeviceName(Serial,OrgID)
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
