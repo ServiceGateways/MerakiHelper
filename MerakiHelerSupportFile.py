@@ -746,6 +746,7 @@ def CheckLoss(OrgResponse):
 			print(Interfaces.get('uplink'))
 			TimeSeries = Interfaces.get('timeSeries')
 			for statistics in TimeSeries:
+				print(len(TimeSeries))
 				#print(float(statistics.get('lossPercent')))
 				#print(int(statistics.get('lossPercent')))
 				#if statistics.get('lossPercent') != None:
