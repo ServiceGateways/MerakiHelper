@@ -738,7 +738,6 @@ def CheckDeviceDown(OrgResponse):
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
-		SerialNameList = []
 		SerialNameList.clear()	
 		del SerialNameList[:]
 
