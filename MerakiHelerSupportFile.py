@@ -709,6 +709,7 @@ def GetDeviceNameII(Serial):
 	return(DeviceName)
 ##############################################################################################		
 def GetDeviceName(Serial,OrgID):
+	print("len of list =", len(SerialNameList))
 	if len(SerialNameList) > 0:	
 		Found = False
 		for SerialNames in SerialNameList:
