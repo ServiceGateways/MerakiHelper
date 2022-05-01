@@ -739,6 +739,7 @@ def CheckDeviceDown(OrgResponse):
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		SerialNameList = []
+		SerialNameList.clear()	
 		SerialNameEntry = {}
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
