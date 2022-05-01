@@ -728,7 +728,7 @@ def CheckDeviceDown(OrgResponse):
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
-		GetOrgDevices = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
+		GetOrgDevices = dashboard.organizations.getOrganizationDevices(Orgs.get('id'), total_pages='all')
 		for DeviceInfo in GetOrgDevices:
 			SerialNameEntry["name"] = DeviceInfo.get('name')
 			SerialNameEntry["serial"] = Serial
