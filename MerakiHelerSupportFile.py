@@ -709,7 +709,9 @@ def GetDeviceNameII(Serial):
 	return(DeviceName)
 ##############################################################################################		
 def GetDeviceName(Serial,OrgID):
+	print("Attempting to locate serial", Serial)
 	print("len of list =", len(SerialNameList))
+	print("The contents of SerialNameList =",SerialNameList)
 	if len(SerialNameList) > 0:	
 		for SerialNames in SerialNameList:
 			if SerialNames.get('serial') == Serial:
@@ -738,6 +740,8 @@ def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		SerialNameList = []
 		SerialNameList.clear()	
+		del SerialNameList[:]
+
 		SerialNameEntry = {}
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
