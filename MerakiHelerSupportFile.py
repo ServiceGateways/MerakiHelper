@@ -711,16 +711,14 @@ def GetDeviceNameII(Serial):
 def GetDeviceName(Serial,OrgID):
 	print("len of list =", len(SerialNameList))
 	if len(SerialNameList) > 0:	
-		Found = False
 		for SerialNames in SerialNameList:
 			if SerialNames.get('serial') == Serial:
 				print("local lookup")
 				return str(SerialNames.get('name'))
 				Found = True
-		#if Found != True:
-		#	GetDeviceNameII(Serial)
 	else:
 		GetOrgDevices = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
+		print(GetOrgDevices)
 		for DeviceInfo in GetOrgDevices:
 			SerialNameEntry["name"] = DeviceInfo.get('name')
 			SerialNameEntry["serial"] = Serial
@@ -745,13 +743,8 @@ def CheckLoss(OrgResponse):
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
 		print(Orgs.get('name'))
 		for Interfaces in InterfacesStats:
-			print(Interfaces.get('uplink'))
 			TimeSeries = Interfaces.get('timeSeries')
 			for statistics in TimeSeries:
-				print(len(TimeSeries))
-				#print(float(statistics.get('lossPercent')))
-				#print(int(statistics.get('lossPercent')))
-				#if statistics.get('lossPercent') != None:
 				CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Orgs.get('id'))) + " " + Interfaces.get('uplink')
 				CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 				LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
