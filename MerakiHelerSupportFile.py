@@ -765,8 +765,13 @@ $$ | \_/ $$ |\$$$$$$$\ $$ |     \$$$$$$$ |$$ | \$$\ $$ |      $$ |  $$ |\$$$$$$$
  
 print(" ")
 print("Menu -")
-print("1. Compliance (1-enter)")
-
+print("1. Compliance")
+print("2. Uplink down report")
+print("3. Uplink loss report")
+print("4. Device down report")
+print("5. Delete organisation <org id>")
+print("6. Fix organisation <org id>")
+print(" ")
 
 
 ##############################################################################################
