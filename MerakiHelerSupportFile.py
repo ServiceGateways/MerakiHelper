@@ -744,7 +744,7 @@ def CheckLoss(OrgResponse):
 				CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 				LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
-def menu:
+def menu():
 	print("$$\      $$\                              $$\       $$\       $$\   $$\           $$\                               
 $$$\    $$$ |                             $$ |      \__|      $$ |  $$ |          $$ |                              
 $$$$\  $$$$ | $$$$$$\   $$$$$$\  $$$$$$\  $$ |  $$\ $$\       $$ |  $$ | $$$$$$\  $$ | $$$$$$\   $$$$$$\   $$$$$$\  
