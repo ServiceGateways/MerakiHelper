@@ -712,21 +712,11 @@ def GetDeviceName(Serial,OrgID):
 	print("Attempting to locate serial", Serial)
 	print("len of list =", len(SerialNameList))
 	print("The contents of SerialNameList =",SerialNameList)
-	if len(SerialNameList) > 0:	
-		for SerialNames in SerialNameList:
-			if SerialNames.get('serial') == Serial:
-				print("local lookup")
-				return str(SerialNames.get('name'))
-				Found = True
-	else:
-		GetOrgDevices = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
-		print(GetOrgDevices)
-		for DeviceInfo in GetOrgDevices:
-			SerialNameEntry["name"] = DeviceInfo.get('name')
-			SerialNameEntry["serial"] = Serial
-			SerialNameList.append(SerialNameEntry)
-			if len(SerialNameList) > 0:	
-				GetDeviceName(Serial,OrgID)
+	for SerialNames in SerialNameList:
+		if SerialNames.get('serial') == Serial:
+			print("local lookup")
+			return str(SerialNames.get('name'))
+
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
@@ -738,10 +728,12 @@ def CheckDeviceDown(OrgResponse):
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
-		SerialNameList.clear()	
-		del SerialNameList[:]
+		GetOrgDevices = dashboard.organizations.getOrganizationDevices(OrgID, total_pages='all')
+		for DeviceInfo in GetOrgDevices:
+			SerialNameEntry["name"] = DeviceInfo.get('name')
+			SerialNameEntry["serial"] = Serial
+			SerialNameList.append(SerialNameEntry)
 
-		SerialNameEntry = {}
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
 		print(Orgs.get('name'))
