@@ -11,6 +11,7 @@ dashboard = ReadyAPIinterface(GetAPIKey())
 #############################################################
 #Get orgs
 OrgResponse=GetOrgs(dashboard)
+menu()
 #############################################################
 #List org access if needed
 if args.list == True:
