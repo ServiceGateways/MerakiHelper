@@ -731,7 +731,7 @@ def CheckLoss(OrgResponse):
 		GetOrgDevices = dashboard.organizations.getOrganizationDevices(Orgs.get('id'), total_pages='all')
 		for DeviceInfo in GetOrgDevices:
 			SerialNameEntry["name"] = DeviceInfo.get('name')
-			SerialNameEntry["serial"] = Serial
+			SerialNameEntry["serial"] = DeviceInfo.get('serial')
 			SerialNameList.append(SerialNameEntry)
 
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
