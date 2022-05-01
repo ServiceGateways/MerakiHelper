@@ -748,10 +748,10 @@ def CheckLoss(OrgResponse):
 			for statistics in TimeSeries:
 				#print(float(statistics.get('lossPercent')))
 				#print(int(statistics.get('lossPercent')))
-				if statistics.get('lossPercent') != None:
-						CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Orgs.get('id'))) + " " + Interfaces.get('uplink')
-						CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
-						LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
+				#if statistics.get('lossPercent') != None:
+				CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Orgs.get('id'))) + " " + Interfaces.get('uplink')
+				CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
+				LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 # End of Functions
 ##############################################################################################
