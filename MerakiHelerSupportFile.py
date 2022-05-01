@@ -749,12 +749,9 @@ def CheckLoss(OrgResponse):
 				#print(float(statistics.get('lossPercent')))
 				#print(int(statistics.get('lossPercent')))
 				if statistics.get('lossPercent') != None:
-					if int(statistics.get('lossPercent')) > 5 or int(statistics.get('lossPercent')) == 0: 
 						CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Orgs.get('id'))) + " " + Interfaces.get('uplink')
 						CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 						LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
-					else:
-						LoggingAddUplinks(Interfaces.get('serial'), "no stats" , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 # End of Functions
 ##############################################################################################
