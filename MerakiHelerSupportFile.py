@@ -694,24 +694,7 @@ def CheckUP(OrgResponse):
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################		
-def GetDeviceNameII(Serial):
-	try: 
-		DeviceInfo = dashboard.devices.getDevice(Serial)
-		if str(DeviceInfo.get('name')) == "None":
-			DeviceName = "Unnamed Device"
-		else:
-			DeviceName=str(DeviceInfo.get('name'))
-			SerialNameEntry["name"] = DeviceInfo.get('name')
-			SerialNameEntry["serial"] = Serial
-			SerialNameList.append(SerialNameEntry)
-	except:
-		DeviceName = "Unnamed Device"
-	return(DeviceName)
-##############################################################################################		
 def GetDeviceName(Serial,OrgID):
-	print("Attempting to locate serial", Serial)
-	print("len of list =", len(SerialNameList))
-	print("The contents of SerialNameList =",SerialNameList)
 	for SerialNames in SerialNameList:
 		if SerialNames.get('serial') == Serial:
 			print("local lookup")
