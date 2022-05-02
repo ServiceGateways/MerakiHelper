@@ -695,11 +695,13 @@ def CheckUP(OrgResponse):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################		
 def GetDeviceName(Serial,Devices):
+	Lookup = False
 	for SerialNames in Devices:
 		if SerialNames.get('serial') == Serial:
-			print("local lookup")
+			Lookup = True
 			return str(SerialNames.get('name'))
-
+	if Lookup == False:
+		return ("Unnamed")
 ##############################################################################################		
 def CheckDeviceDown(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
@@ -712,7 +714,6 @@ def CheckDeviceDown(OrgResponse):
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		Devices=GetOrgDevices(Orgs.get('id'))
-		
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
 		print(Orgs.get('name'))
