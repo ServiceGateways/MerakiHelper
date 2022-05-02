@@ -78,7 +78,6 @@ if (args.loss) == True:
 	Comment = " API used = GET /organizations/{organizationId}/devices/uplinksLossAndLatency"
 	LoggingUplinkPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
-	print(SerialNameList)
 ##########################################################################################################################
 #Run Device Down report
 if (args.down) == True:

@@ -541,6 +541,8 @@ def LoggingPrint(ReportTitle, Comment):
 	for LogEntries in LoggingList:
 		LogTable.add_row([LogEntries.get('Date'), LogEntries.get('Time'),LogEntries.get('Description'),LogEntries.get('StatusCode'),LogEntries.get('Org'),LogEntries.get('OrgRef')])
 	print(LogTable)
+	print("Entries:", len(LoggingList)
+	
 ##############################################################################################	
 #small add new role function to create admins
 def CreateAdmin(OrgID, AdminName, Access):
