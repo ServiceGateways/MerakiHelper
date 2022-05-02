@@ -675,13 +675,14 @@ def DeviceUp(uplinks,serial,name,id):
 	for interfaces in uplinks:
 		if interfaces.get('status') != "active":
 			DeviceStatus=False
-			LoggingAddUplinks(serial,GetDeviceName(serial), " ", name, id)
+			LoggingAddUplinks(serial,GetDeviceName(serial,id), " ", name, id)
 			return(DeviceStatus)
 	return(DeviceStatus)
 ##############################################################################################		
 def CheckUP(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
+		
 		#get uplinks
 		Uplinkresponse=GetUplinkStatus(Orgs.get('id'))		
 		for idx, appliances in enumerate(Uplinkresponse):
