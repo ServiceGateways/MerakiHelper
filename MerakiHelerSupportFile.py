@@ -694,8 +694,8 @@ def CheckUP(OrgResponse):
 			for interfaces in appliances.get('uplinks'):
 				LoggingAddUplinks(appliances.get('serial'),interfaces.get('interface'), interfaces.get('status'), Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################		
-def GetDeviceName(Serial,OrgID):
-	for SerialNames in SerialNameList:
+def GetDeviceName(Serial,Devices):
+	for SerialNames in Devices:
 		if SerialNames.get('serial') == Serial:
 			print("local lookup")
 			return str(SerialNames.get('name'))
@@ -711,19 +711,15 @@ def CheckDeviceDown(OrgResponse):
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
-		GetOrgDevices = dashboard.organizations.getOrganizationDevices(Orgs.get('id'), total_pages='all')
-		for DeviceInfo in GetOrgDevices:
-			SerialNameEntry["name"] = DeviceInfo.get('name')
-			SerialNameEntry["serial"] = DeviceInfo.get('serial')
-			SerialNameList.append(SerialNameEntry)
-
+		Devices=GetOrgDevices(Orgs.get('id'))
+		
 		runningxxx(idx+1,OrgResponse) #Show progress on screen
 		InterfacesStats = dashboard.organizations.getOrganizationDevicesUplinksLossAndLatency(Orgs.get('id'))
 		print(Orgs.get('name'))
 		for Interfaces in InterfacesStats:
 			TimeSeries = Interfaces.get('timeSeries')
 			for statistics in TimeSeries:
-				CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Orgs.get('id'))) + " " + Interfaces.get('uplink')
+				CompressedDesc = str(GetDeviceName(Interfaces.get('serial'),Devices)) + " " + Interfaces.get('uplink')
 				CompressedStatus = ( "Err loss = " + str(statistics.get('lossPercent')))
 				LoggingAddUplinks(Interfaces.get('serial'), CompressedDesc , CompressedStatus, Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
