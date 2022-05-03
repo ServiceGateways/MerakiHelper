@@ -714,7 +714,7 @@ def CheckDeviceDown(OrgResponse):
 		DeviceStatus = dashboard.organizations.getOrganizationDevicesStatuses(Orgs.get('id'), total_pages='all')
 		for Devices in DeviceStatus:
 			if Devices.get('status') != "online":
-				LoggingAdd((GetDeviceName(Devices.get('serial'),Orgs.get('id')) + " " + Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
+				LoggingAdd((GetDeviceName(Devices.get('serial'),GetOrgDevices(Orgs.get('id'))) + " " + Devices.get('serial') ), "Err", Orgs.get('name'), Orgs.get('id'))
 ##############################################################################################
 def CheckLoss(OrgResponse):
 	for idx, Orgs in enumerate(OrgResponse):
