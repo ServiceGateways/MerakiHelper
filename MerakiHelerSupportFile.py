@@ -702,7 +702,7 @@ def GetDeviceName(Serial,Devices):
 	print(Devices)
 	print(type(Devices))
 	for SerialNames in Devices:
-		if SerialNames[serial] == Serial:
+		if SerialNames.get('serial') == Serial:
 			Lookup = True
 			return str(SerialNames.get('name'))
 	if Lookup == False:
