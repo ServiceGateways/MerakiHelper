@@ -34,6 +34,11 @@ try:
 except Exception as e:
 	print("This module is required, but not present install this module - ",e)
 	sys.exit()
+try:
+	from pathlib import Path
+except Exception as e:
+	print("This module is required, but not present install this module - ",e)
+	sys.exit()
 ##############################################################################################	
 # End of imports
 ##############################################################################################	
@@ -509,8 +514,15 @@ def Logging2CSVandXLS(prefix): #Convert the Log file into a short report.
 	#Make XLS file
 	df = pd.DataFrame.from_dict(ListofDic_UniqueOrgs)
 	df.to_excel(str(Xlsfilename))
-	
-	FullFilePath = str(pathlib.Path(__file__).parent.resolve())+"/"+str(Xlsfilename)
+	home = str(Path.home())
+	merakifolder = home + "/" + "MerakiReports"
+	print(merakifolder)
+	if Path(merakifolder).is_dir() == False:
+		try:
+			os.mkdir(merakifolder)
+		except:
+		print("There was an error creating:", merakifolder)
+	FullFilePath = merakifolder + "/" + str(Xlsfilename)
 	print("Full report available at: ",FullFilePath)
 ##############################################################################################	
 #Time stamps and adds things to the logging list
