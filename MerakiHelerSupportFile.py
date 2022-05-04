@@ -346,6 +346,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		
 		#If they arent found put them in	
 		if FoundMerakiAdmin == False:
+			LoggingAdd("Org admins: MerakiAdmin not found", "Err", Orgs.get('name'),Orgs.get('id'))	
 			#create role for Meraki Admin
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
@@ -354,6 +355,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))	
 		if FoundMerakiRoAdmin == False:
 			#create role for Meraki RO admin
+			LoggingAdd("Org admins: MerakiROAdmin not found", "Err", Orgs.get('name'),Orgs.get('id'))	
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
@@ -361,6 +363,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))	
 		if FoundCustomerAdmin == False:
 			#create role for Meraki Admin
+			LoggingAdd("Org admins: CustomerAdmin not found", "Err", Orgs.get('name'),Orgs.get('id'))	
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:	
@@ -368,6 +371,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 				LoggingAdd("Recreated SAML roles", "Ok", Orgs.get('name'),Orgs.get('id'))			
 		if FoundCustomerRoAdmin == False:
 			#create role for Meraki RO admin
+			LoggingAdd("Org admins: CustomerROAdmin not found", "Err", Orgs.get('name'),Orgs.get('id'))	
 			if RWmode == False:
 				LoggingAdd("Org admins: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:
