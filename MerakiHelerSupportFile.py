@@ -519,7 +519,7 @@ def Logging2CSVandXLS(prefix): #Convert the Log file into a short report.
 		except:
 			print("There was an error creating:", merakifolder)
 			
-	FullFilePath = merakifolder)+"/"+str(Xlsfilename)
+	FullFilePath = merakifolder+"/"+str(Xlsfilename)
 	print("Full report available at: ",FullFilePath)
 ##############################################################################################	
 #Time stamps and adds things to the logging list
