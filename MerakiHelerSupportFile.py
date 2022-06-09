@@ -277,6 +277,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		#Prepare a small function to be used if IdP disabled or missing
 		def SetupIPpInternal(OrgID):
 			LoggingAdd("IdP: Updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
+			print(Orgs.get('id'), x509certSha1Fingerprint, sloLogoutUrl)
 			PushIDp = dashboard.organizations.createOrganizationSamlIdp(Orgs.get('id'), x509certSha1Fingerprint, sloLogoutUrl)
 			return PushIDp
 		#Is SAML / IdP disabled? If so enable it and call function
