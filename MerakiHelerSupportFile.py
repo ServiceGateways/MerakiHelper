@@ -58,7 +58,7 @@ RWmode=False #default passive mode script is ran in
 
 #Required for UMS VMB-IAM Internal User Access
 x509certSha1Fingerprint = "10:1D:AE:5F:0B:B3:27:CB:FB:C8:56:20:AD:F0:6F:70:70:56:95:70"
-sloLogoutUrl = "https://ums.virginmediabusiness.co.uk/admin/launchpad"
+sloLogoutUrlVAR = "https://ums.virginmediabusiness.co.uk/admin/launchpad"
 
 #SAML Admin roles, define the access, role is passed in token on login. Required for Internal User Access
 AdminRWname = "Meraki VMB Admin"
@@ -278,7 +278,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		def SetupIPpInternal(OrgID):
 			LoggingAdd("IdP: Updating", "Ok", Orgs.get('name'),OrgID)	
 			#print(Orgs.get('id'), x509certSha1Fingerprint, sloLogoutUrl)
-			PushIDp = dashboard.organizations.createOrganizationSamlIdp(OrgID, x509certSha1Fingerprint, sloLogoutUrl)
+			PushIDp = dashboard.organizations.createOrganizationSamlIdp(OrgID, x509certSha1Fingerprint, sloLogoutUrl= sloLogoutUrlVAR)
 			return PushIDp
 		#Is SAML / IdP disabled? If so enable it and call function
 		if SamlResponse.get('enabled') == False:
@@ -299,7 +299,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 			IdPsID = IdP_Configured[IdP_Configured.index(IdPs)].get('idpId')
 			if IdPs.get('x509certSha1Fingerprint') == eval("x509certSha1Fingerprint"):
 				IdPsFound = True
-				if IdPs.get('sloLogoutUrl') == eval("sloLogoutUrl"):
+				if IdPs.get('sloLogoutUrlVAR') == eval("sloLogoutUrlVAR"):
 					IdPsConfiguredCorrect = True
 					continue
 				#Found the IdP by matching the x509 cert byt url is wrong... fix it with update
@@ -307,7 +307,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					LoggingAdd("IdP Integration: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 				if RWmode == True:	
 					LoggingAdd("IdP Integration: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint, sloLogoutUrl)
+					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint, sloLogoutUrlVAR)
 		#If IdPsFound == False then we didnt find the IdP settings, so put them back
 		if IdPsFound == False:
 			if RWmode == False:
@@ -599,7 +599,7 @@ def parseArguments():
 	parser.add_argument("--loss", help="List MX Appliances with WAN interface issues", action="store_true")
 	parser.add_argument("--review", help="Compliance check for ops", action="store_true")
 	parser.add_argument("--down", help="List devices which are down", action="store_true")
-	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.3')
+	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.4')
     #parser.add_argument("--api", help="Plain text API", type=str)
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
     # Parse arguments
