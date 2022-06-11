@@ -304,7 +304,8 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					continue
 				#Found the IdP by matching the x509 cert byt url is wrong... fix it with update
 				if RWmode == False:
-					LoggingAdd("IdP Integration: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
+					LoggingAdd("IdP Integration: URL wrong", "Err", Orgs.get('name'),Orgs.get('id'))		
+					LoggingAdd(IdPs.get('sloLogoutUrlVAR'), eval("sloLogoutUrlVAR"), Orgs.get('name'),Orgs.get('id'))
 				if RWmode == True:	
 					LoggingAdd("IdP Integration: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
 					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint = x509certSha1FingerprintVAR, sloLogoutUrl = sloLogoutUrlVAR)
@@ -599,7 +600,7 @@ def parseArguments():
 	parser.add_argument("--loss", help="List MX Appliances with WAN interface issues", action="store_true")
 	parser.add_argument("--review", help="Compliance check for ops", action="store_true")
 	parser.add_argument("--down", help="List devices which are down", action="store_true")
-	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.7')
+	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.8')
     #parser.add_argument("--api", help="Plain text API", type=str)
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
     # Parse arguments
