@@ -311,7 +311,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		#If IdPsFound == False then we didnt find the IdP settings, so put them back
 		if IdPsFound == False:
 			if RWmode == False:
-				LoggingAdd("IdP Integration: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
+				LoggingAdd("IdP Integration: not found", "Err", Orgs.get('name'),Orgs.get('id'))		
 			if RWmode == True:	
 				SetupIPpInternal(OrgID=Orgs.get('id'))
 	#############################################################
