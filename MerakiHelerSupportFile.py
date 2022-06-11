@@ -299,7 +299,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 			IdPsID = IdP_Configured[IdP_Configured.index(IdPs)].get('idpId')
 			if IdPs.get('x509certSha1Fingerprint') == eval("x509certSha1FingerprintVAR"):
 				IdPsFound = True
-				if IdPs.get('sloLogoutUrlVAR') == eval("sloLogoutUrlVAR"):
+				if IdPs.get('sloLogoutUrl') == eval("sloLogoutUrlVAR"):
 					IdPsConfiguredCorrect = True
 					continue
 				#Found the IdP by matching the x509 cert byt url is wrong... fix it with update
@@ -600,7 +600,7 @@ def parseArguments():
 	parser.add_argument("--loss", help="List MX Appliances with WAN interface issues", action="store_true")
 	parser.add_argument("--review", help="Compliance check for ops", action="store_true")
 	parser.add_argument("--down", help="List devices which are down", action="store_true")
-	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.8')
+	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.9')
     #parser.add_argument("--api", help="Plain text API", type=str)
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
     # Parse arguments
