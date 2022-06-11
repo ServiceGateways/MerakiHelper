@@ -278,7 +278,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		def SetupIPpInternal(OrgID):
 			LoggingAdd("IdP: Updating", "Ok", Orgs.get('name'),OrgID)	
 			#print(Orgs.get('id'), x509certSha1Fingerprint, sloLogoutUrl)
-			PushIDp = dashboard.organizations.createOrganizationSamlIdp(OrgID, x509certSha1Fingerprint, sloLogoutUrl= sloLogoutUrlVAR)
+			PushIDp = dashboard.organizations.createOrganizationSamlIdp(OrgID, x509certSha1Fingerprint, sloLogoutUrl = sloLogoutUrlVAR)
 			return PushIDp
 		#Is SAML / IdP disabled? If so enable it and call function
 		if SamlResponse.get('enabled') == False:
@@ -307,7 +307,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					LoggingAdd("IdP Integration: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 				if RWmode == True:	
 					LoggingAdd("IdP Integration: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint, sloLogoutUrlVAR)
+					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint, sloLogoutUrl = sloLogoutUrlVAR)
 		#If IdPsFound == False then we didnt find the IdP settings, so put them back
 		if IdPsFound == False:
 			if RWmode == False:
@@ -599,7 +599,7 @@ def parseArguments():
 	parser.add_argument("--loss", help="List MX Appliances with WAN interface issues", action="store_true")
 	parser.add_argument("--review", help="Compliance check for ops", action="store_true")
 	parser.add_argument("--down", help="List devices which are down", action="store_true")
-	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.4')
+	parser.add_argument("--version", action="version", version='%(prog)s - Version 2.5')
     #parser.add_argument("--api", help="Plain text API", type=str)
     #parser.add_argument("--usr", help="Plain text usrname", type=str)
     # Parse arguments
