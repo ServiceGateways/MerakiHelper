@@ -57,7 +57,7 @@ API_URLPrefix = "https://api.meraki.com/api/v1/organizations/"
 RWmode=False #default passive mode script is ran in
 
 #Required for UMS VMB-IAM Internal User Access
-x509certSha1Fingerprint = "10:1D:AE:5F:0B:B3:27:CB:FB:C8:56:20:AD:F0:6F:70:70:56:95:70"
+x509certSha1FingerprintVAR = "10:1D:AE:5F:0B:B3:27:CB:FB:C8:56:20:AD:F0:6F:70:70:56:95:70"
 sloLogoutUrlVAR = "https://ums.virginmediabusiness.co.uk/admin/launchpad"
 
 #SAML Admin roles, define the access, role is passed in token on login. Required for Internal User Access
@@ -278,7 +278,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		def SetupIPpInternal(OrgID):
 			LoggingAdd("IdP: Updating", "Ok", Orgs.get('name'),OrgID)	
 			#print(Orgs.get('id'), x509certSha1Fingerprint, sloLogoutUrl)
-			PushIDp = dashboard.organizations.createOrganizationSamlIdp(OrgID, x509certSha1Fingerprint, sloLogoutUrl = sloLogoutUrlVAR)
+			PushIDp = dashboard.organizations.createOrganizationSamlIdp(OrgID, x509certSha1Fingerprint = x509certSha1FingerprintVAR, sloLogoutUrl = sloLogoutUrlVAR)
 			return PushIDp
 		#Is SAML / IdP disabled? If so enable it and call function
 		if SamlResponse.get('enabled') == False:
@@ -297,7 +297,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 		IdPsConfiguredCorrect = False
 		for IdPs in IdP_Configured:
 			IdPsID = IdP_Configured[IdP_Configured.index(IdPs)].get('idpId')
-			if IdPs.get('x509certSha1Fingerprint') == eval("x509certSha1Fingerprint"):
+			if IdPs.get('x509certSha1Fingerprint') == eval("x509certSha1FingerprintVAR"):
 				IdPsFound = True
 				if IdPs.get('sloLogoutUrlVAR') == eval("sloLogoutUrlVAR"):
 					IdPsConfiguredCorrect = True
@@ -307,7 +307,7 @@ def BigLoop(RWmode, OrgResponse, FixOrg):
 					LoggingAdd("IdP Integration: failed", "Err", Orgs.get('name'),Orgs.get('id'))		
 				if RWmode == True:	
 					LoggingAdd("IdP Integration: updating", "Ok", Orgs.get('name'),Orgs.get('id'))	
-					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint, sloLogoutUrl = sloLogoutUrlVAR)
+					UpdateIdP = dashboard.organizations.updateOrganizationSamlIdp(Orgs.get('id'), IdPsID, x509certSha1Fingerprint = x509certSha1FingerprintVAR, sloLogoutUrl = sloLogoutUrlVAR)
 		#If IdPsFound == False then we didnt find the IdP settings, so put them back
 		if IdPsFound == False:
 			if RWmode == False:

@@ -1,0 +1,17 @@
+2022-06-11 12:17:30       meraki:     INFO > Meraki dashboard API session initialized with these parameters: {'version': '1.20.0', 'api_key': '************************************7426', 'base_url': 'https://api.meraki.com/api/v1', 'single_request_timeout': 60, 'certificate_path': '', 'requests_proxy': '', 'wait_on_rate_limit': True, 'nginx_429_retry_wait_time': 60, 'action_batch_retry_wait_time': 60, 'retry_4xx_error': False, 'retry_4xx_error_wait_time': 60, 'maximum_retries': 2, 'simulate': False, 'be_geo_id': None, 'caller': None, 'use_iterator_for_get_pages': False}
+2022-06-11 12:17:30       meraki:    DEBUG > {'tags': ['organizations', 'configure'], 'operation': 'getOrganizations', 'method': 'GET', 'url': '/organizations', 'params': None}
+2022-06-11 12:17:30       meraki:     INFO > GET https://api.meraki.com/api/v1/organizations
+2022-06-11 12:17:31       meraki:     INFO > GET https://n103.meraki.com/api/v1/organizations
+2022-06-11 12:17:33       meraki:     INFO > organizations, getOrganizations - 200 OK
+2022-06-11 12:17:33       meraki:    DEBUG > {'tags': ['organizations', 'configure', 'admins'], 'operation': 'getOrganizationAdmins', 'method': 'GET', 'url': '/organizations/620933798623709892/admins', 'params': None}
+2022-06-11 12:17:33       meraki:     INFO > GET https://n103.meraki.com/api/v1/organizations/620933798623709892/admins
+2022-06-11 12:17:33       meraki:     INFO > organizations, getOrganizationAdmins - 200 OK
+2022-06-11 12:17:33       meraki:    DEBUG > {'tags': ['organizations', 'configure', 'loginSecurity'], 'operation': 'getOrganizationLoginSecurity', 'method': 'GET', 'url': '/organizations/620933798623709892/loginSecurity', 'params': None}
+2022-06-11 12:17:33       meraki:     INFO > GET https://n103.meraki.com/api/v1/organizations/620933798623709892/loginSecurity
+2022-06-11 12:17:33       meraki:     INFO > organizations, getOrganizationLoginSecurity - 200 OK
+2022-06-11 12:17:33       meraki:    DEBUG > {'tags': ['organizations', 'configure', 'saml'], 'operation': 'getOrganizationSaml', 'method': 'GET', 'url': '/organizations/620933798623709892/saml', 'params': None}
+2022-06-11 12:17:33       meraki:     INFO > GET https://n103.meraki.com/api/v1/organizations/620933798623709892/saml
+2022-06-11 12:17:33       meraki:     INFO > organizations, getOrganizationSaml - 200 OK
+2022-06-11 12:17:33       meraki:    DEBUG > {'tags': ['organizations', 'configure', 'saml', 'idps'], 'operation': 'getOrganizationSamlIdps', 'method': 'GET', 'url': '/organizations/620933798623709892/saml/idps', 'params': None}
+2022-06-11 12:17:33       meraki:     INFO > GET https://n103.meraki.com/api/v1/organizations/620933798623709892/saml/idps
+2022-06-11 12:17:33       meraki:     INFO > organizations, getOrganizationSamlIdps - 200 OK
