@@ -156,7 +156,7 @@ def GetTheLics(OrgResponse):
 	for Orgs in OrgResponse:
 		LoggingAdd("Listing lics ", "Ok", Orgs.get('name'),Orgs.get('id'))
 		response = dashboard.organizations.getOrganizationLicenses(Orgs.get('id'))
-		#LoggingAdd(response, "Ok", Orgs.get('name'),Orgs.get('id'))
+		LoggingAdd(str(response), "Ok", Orgs.get('name'),Orgs.get('id'))
 	return()
 ##############################################################
 
