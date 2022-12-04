@@ -152,6 +152,14 @@ def GetOrgDevices(OrgID):
 		CreateLocalAdminresponse = dashboard.organizations.createOrganizationAdmin(OrgID, LocalAdminEmail, LocalAdminName, LocalAdminAccess, tags=[])
 		return CreateLocalAdminresponse
 ##############################################################
+def GetTheLics(OrgResponse):
+	for Orgs in enumerate(OrgResponse):
+		LoggingAdd("Listing lics ", "Ok", Orgs.get('name'),Orgs.get('id'))
+		response = dashboard.organizations.getOrganizationLicenses(Orgs.get('id'), total_pages='all')
+		LoggingAdd(response, "Ok", Orgs.get('name'),Orgs.get('id'))
+	return()
+##############################################################
+
 def BigLoop(RWmode, OrgResponse, FixOrg):
 	#Start mega loop - looping through orgs
 	for idx, Orgs in enumerate(OrgResponse):

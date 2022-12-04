@@ -23,6 +23,16 @@ if args.list == True:
 	Logging2CSVandXLS(ReportTitle)
 	sys.exit()		
 #############################################################
+#List org access if needed
+if args.lic == True:
+	runningxxx(1, OrgResponse) #Show program is running.
+	GetTheLics(OrgResponse)
+	ReportTitle="Meraki lic report - "
+	Comment = "simple list of lics which this API has access."
+	LoggingPrint(ReportTitle, Comment)
+	Logging2CSVandXLS(ReportTitle)
+	sys.exit()		
+#############################################################
 #Find a specified org if needed
 if args.search != None:
 	results = FindOrgAndList(OrgResponse, args.search)
