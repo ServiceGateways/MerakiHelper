@@ -32,7 +32,7 @@ if args.lic == True:
 	LoggingPrint(ReportTitle, Comment)
 	Logging2CSVandXLS(ReportTitle)
 	sys.exit()		
-#############################################################
+##############################################################
 #Find a specified org if needed
 if args.search != None:
 	results = FindOrgAndList(OrgResponse, args.search)
