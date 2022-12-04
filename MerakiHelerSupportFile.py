@@ -154,11 +154,10 @@ def GetOrgDevices(OrgID):
 ##############################################################
 def GetTheLics(OrgResponse):
 	for Orgs in OrgResponse:
-		LoggingAdd("Listing lics ", "Ok", Orgs.get('name'),Orgs.get('id'))
 		Licsresponse = dashboard.organizations.getOrganizationLicenses(Orgs.get('id'))
 		for lics in Licsresponse:
-			licdump = str(lics.get('licenseType')) + "-" + str(lics.get('orderNumber')) + "-" + str(lics.get('state')) + "-" + str(lics.get('licenseKey'))
-			LoggingAdd(licdump, "Ok", Orgs.get('name'),Orgs.get('id'))
+			licdump = str(lics.get('licenseType')) + "-" + str(lics.get('orderNumber')) + "-" + str(lics.get('licenseKey'))
+			LoggingAdd(licdump, str(lics.get('state')), Orgs.get('name'),Orgs.get('id'))
 	return()
 ##############################################################
 
