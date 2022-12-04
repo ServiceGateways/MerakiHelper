@@ -157,12 +157,8 @@ def GetTheLics(OrgResponse):
 		LoggingAdd("Listing lics ", "Ok", Orgs.get('name'),Orgs.get('id'))
 		Licsresponse = dashboard.organizations.getOrganizationLicenses(Orgs.get('id'))
 		for lics in Licsresponse:
-			lictype = lics.get('licenseType')
-			licorder = lics.get('orderNumber')
-			licstate = lics.get('state')
-			lickey = lics.get('licenseKey')
-			stringout = lictype & "-" & licorder & "-" & licstate & "-" lickey
-		LoggingAdd(stringout, "Ok", Orgs.get('name'),Orgs.get('id'))
+			licdump = lics.get('licenseType') & "-" & lics.get('orderNumber') & "-" & lics.get('state') & "-" lics.get('licenseKey')
+		LoggingAdd(licdump, "Ok", Orgs.get('name'),Orgs.get('id'))
 	return()
 ##############################################################
 
