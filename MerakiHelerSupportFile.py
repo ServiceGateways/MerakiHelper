@@ -155,8 +155,8 @@ def GetOrgDevices(OrgID):
 def GetTheLics(OrgResponse):
 	for Orgs in OrgResponse:
 		LoggingAdd("Listing lics ", "Ok", Orgs.get('name'),Orgs.get('id'))
-		#response = dashboard.organizations.getOrganizationLicenses(Orgs.get('id'), total_pages='all')
-		#LoggingAdd(response, "Ok", Orgs.get('name'),Orgs.get('id'))
+		response = dashboard.organizations.getOrganizationLicenses(Orgs.get('id'), total_pages='all')
+		LoggingAdd(response, "Ok", Orgs.get('name'),Orgs.get('id'))
 	return()
 ##############################################################
 
