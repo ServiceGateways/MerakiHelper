@@ -142,15 +142,15 @@ def GetOrgDevices(OrgID):
 ##############################################################################################	
 ###  BIG FUNCTION TO REVIEW OR FIX ORGS #########	
 ##############################################################################################	
-	def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
-		LoggingAdd("...org admin update complete", "Ok", Orgs.get('name'),Orgs.get('id'))	
-		PushLocalAdminUpdate = dashboard.organizations.updateOrganizationAdmin(Orgs.get('id'), LocalAdminUserID, name=LocalAdminName, orgAccess=LocalAdminAccess, tags=[])
-		return PushLocalAdminUpdate
+def UpdateLocalAdmin(LocalAdminUserID, OrgID, LocalAdminName, LocalAdminAccess):
+	LoggingAdd("...org admin update complete", "Ok", Orgs.get('name'),Orgs.get('id'))	
+	PushLocalAdminUpdate = dashboard.organizations.updateOrganizationAdmin(Orgs.get('id'), LocalAdminUserID, name=LocalAdminName, orgAccess=LocalAdminAccess, tags=[])
+	return PushLocalAdminUpdate
 ##############################################################
 		#Define function for creating the local admin accounts if needed
-	def CreateLocalAdmin(OrgID, LocalAdminName, LocalAdminAccess, LocalAdminEmail):		
-		CreateLocalAdminresponse = dashboard.organizations.createOrganizationAdmin(OrgID, LocalAdminEmail, LocalAdminName, LocalAdminAccess, tags=[])
-		return CreateLocalAdminresponse
+def CreateLocalAdmin(OrgID, LocalAdminName, LocalAdminAccess, LocalAdminEmail):		
+	CreateLocalAdminresponse = dashboard.organizations.createOrganizationAdmin(OrgID, LocalAdminEmail, LocalAdminName, LocalAdminAccess, tags=[])
+	return CreateLocalAdminresponse
 ##############################################################
 def GetTheLics(OrgResponse):
 	for Orgs in OrgResponse:
